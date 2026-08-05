@@ -58,12 +58,6 @@ if [[ -f configs/limine/limine.conf ]]; then
     configs/limine/limine-splash-synthwave.png /boot/limine-splash-synthwave.png
   sudo install -m 644 -o root -g root \
     configs/limine/limine-splash.png /boot/limine-splash.png
-  # EDID firmware override (SKG 32" 2560x1080 mode for HDMI-A-1)
-  if [[ -d configs/limine/edid ]]; then
-    sudo install -d -m 755 /usr/lib/firmware/edid
-    sudo install -m 644 -o root -g root configs/limine/edid/*.bin /usr/lib/firmware/edid/
-    echo "  edid firmware installed: $(ls configs/limine/edid/)"
-  fi
   limine-install >/dev/null 2>&1 || true
   echo "  limine config + splash applied; EFI install attempted"
 else

@@ -29,8 +29,7 @@ Pairwise repo↔live mapping. Byte-compare each pair; sync only semantic diffs.
 | configs/kde/baloofilerc | ~/.config/baloofilerc |
 | configs/kde/kscreenlockerrc | ~/.config/kscreenlockerrc (lock screen wallpaper; added Jul 2026) |
 | configs/system/plasmalogin.conf | /etc/plasmalogin.conf (world-readable root file, plain cp works; added Jul 2026. Login wallpaper PNG lives at /var/lib/plasmalogin/wallpapers/ — repo copy is under wallpapers/synthwave84-lock-login/) |
-| configs/limine/limine.conf | /boot/limine.conf (needs sudo to read; includes drm.edid_firmware cmdline) |
-| configs/limine/edid/*.bin | /usr/lib/firmware/edid/ (EDID firmware override, SKG 2560x1080; deployed by handoff script; added Aug 2026) |
+| configs/limine/limine.conf | /boot/limine.conf (needs sudo to read; stock native 2560x1440 — EDID override removed Aug 2026, forge tooling lives in this-is-the-wide repo) |
 | handoff-post-reboot.sh | ~/Projects/active/handoff-post-reboot.sh (post-reboot finisher; tracked in repo since Aug 2026) |
 | configs/kde/gtkrc | ~/.config/gtkrc (SKIP: timestamp churn) |
 | configs/kde/gtkrc-2.0 | ~/.config/gtkrc-2.0 (SKIP: timestamp churn) |
