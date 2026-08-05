@@ -1,0 +1,43 @@
+{{- bos_token }}
+{%- if messages[0]['role'] in ['system', 'developer'] -%}
+    {{- '<|im_start|>system\n' + messages[0]['content'] | trim + '<|im_end|>\n' -}}
+    {%- set loop_messages = messages[1:] -%}
+{%- else -%}
+    {%- set loop_messages = messages -%}
+{%- endif -%}
+
+{%- for message in loop_messages -%}
+    {%- set role = message['role'] -%}
+    
+    {%- if role == 'tool' -%}
+        {{- '<|im_start|>tool\n' + message['content'] | string | trim + '<|im_end|>\n' -}}
+    {%- elif message.get('tool_calls') -%}
+        {{- '<|im_start|>assistant\n' -}}
+        {%- for tool_call in message['tool_calls'] -%}
+            {%- set function = tool_call['function'] -%}
+            {{- function['name'] + '(' + function['arguments'] | string + ')\n' -}}
+        {%- endfor -%}
+        {{- '<|im_end|>\n' -}}
+    {%- else -%}
+        {{- '<|im_start|>' + role + '\n' -}}
+        {%- if message.get('reasoning') or message.get('reasoning_content') -%}
+            {{- '<reasoning>\n' + (message.get('reasoning') or message.get('reasoning_content')) + '\n</reasoning>\n' -}}
+        {%- endif -%}
+        {%- if message['content'] is string -%}
+            {{- message['content'] | trim -}}
+        {%- elif message['content'] is sequence -%}
+            {%- for item in message['content'] -%}
+                {%- if item['type'] == 'text' -%}
+                    {{- item['text'] | trim -}}
+                {%- elif item['type'] == 'image' -%}
+                    {{- '[Image]' -}}
+                {%- endif -%}
+            {%- endfor -%}
+        {%- endif -%}
+        {{- '<|im_end|>\n' -}}
+    {%- endif -%}
+{%- endfor -%}
+
+{%- if add_generation_prompt -%}
+    {{- '<|im_start|>assistant\n' -}}
+{%- endif -%}

@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Synthwave '84
+Description=synthclaw outrun sunset - Synthwave '84 palette
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/synthwave84
+ScriptFile=/usr/share/plymouth/themes/synthwave84/synthwave84.script

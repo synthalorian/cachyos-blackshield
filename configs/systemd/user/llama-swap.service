@@ -1,0 +1,12 @@
+[Unit]
+Description=llama-swap — synthclaw local model server (OpenAI-compatible, port 8080)
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/llama-swap -config %h/.config/llama-swap/config.yaml -listen 127.0.0.1:8080
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,7 @@
+[Daemon]
+LockGrace=0
+Timeout=0
+
+[Greeter][Wallpaper][org.kde.image][General]
+FillMode=2
+Image=file:///home/synth/Pictures/Wallpapers/synthwave84-lock-login/synthwave84-v2-2560x1440.png

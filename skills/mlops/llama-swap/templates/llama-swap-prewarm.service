@@ -1,0 +1,14 @@
+[Unit]
+Description=Pre-warm llama-swap models at boot
+After=llama-swap.service
+BindsTo=llama-swap.service
+
+[Service]
+Type=oneshot
+ExecStart=/home/synth/.local/bin/prewarm-models.sh
+StandardOutput=journal
+StandardError=journal
+Environment=HOME=/home/synth
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,75 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "type": "file",
+    "source": "~/.config/fastfetch/cross.txt",
+    "color": {
+      "1": "#FE4450"
+    },
+    "padding": {
+      "top": 2,
+      "left": 2,
+      "right": 4
+    }
+  },
+  "display": {
+    "separator": " ▪ ",
+    "color": {
+      "keys": "#FF7EDB",
+      "title": "#F3E70F",
+      "separator": "#8F00FF",
+      "output": "#03EDF9"
+    },
+    "brightColor": true,
+    "percent": {
+      "type": 3
+    },
+    "bar": {
+      "char": {
+        "elapsed": "▪",
+        "total": "-"
+      },
+      "width": 20
+    }
+  },
+  "modules": [
+    {
+      "type": "title",
+      "format": "{user-name-colored}@{host-name-colored}",
+      "color": {
+        "user": "#FF7EDB",
+        "at": "#8F00FF",
+        "host": "#F3E70F"
+      }
+    },
+    {
+      "type": "separator",
+      "string": "▪▪▪▪▪▪▪▪▪▪▪▪▪▪▪▪▪▪▪▪▪▪"
+    },
+    { "type": "os", "key": "  OS", "keyColor": "#FF7EDB" },
+    { "type": "host", "key": "  HOST", "keyColor": "#FF7EDB" },
+    { "type": "kernel", "key": "  KERNEL", "keyColor": "#FF7EDB" },
+    { "type": "uptime", "key": "  UPTIME", "keyColor": "#FF7EDB" },
+    { "type": "packages", "key": "  PKGS", "keyColor": "#FF7EDB" },
+    { "type": "shell", "key": "  SHELL", "keyColor": "#FF7EDB" },
+    { "type": "display", "key": "  DISPLAY", "keyColor": "#FF7EDB", "compactType": "original-with-refresh-rate" },
+    { "type": "de", "key": "  DE", "keyColor": "#FF7EDB" },
+    { "type": "wm", "key": "  WM", "keyColor": "#FF7EDB" },
+    { "type": "theme", "key": "  THEME", "keyColor": "#FF7EDB" },
+    { "type": "icons", "key": "  ICONS", "keyColor": "#FF7EDB" },
+    { "type": "font", "key": "  FONT", "keyColor": "#FF7EDB" },
+    { "type": "cursor", "key": "  CURSOR", "keyColor": "#FF7EDB" },
+    { "type": "terminal", "key": "  TERM", "keyColor": "#FF7EDB" },
+    { "type": "terminalfont", "key": "  TERMFONT", "keyColor": "#FF7EDB" },
+    "break",
+    { "type": "cpu", "key": "  CPU", "keyColor": "#FF7EDB" },
+    { "type": "gpu", "key": "  GPU", "keyColor": "#FF7EDB" },
+    { "type": "memory", "key": "  MEM", "keyColor": "#FF7EDB" },
+    { "type": "swap", "key": "  SWAP", "keyColor": "#FF7EDB" },
+    { "type": "disk", "key": "  DISK", "keyColor": "#FF7EDB", "folders": "/" },
+    { "type": "battery", "key": "  BATT", "keyColor": "#FF7EDB" },
+    { "type": "localip", "key": "  IP", "keyColor": "#FF7EDB", "compact": true },
+    "break",
+    { "type": "colors", "key": "  COLORS", "keyColor": "#FF7EDB", "symbol": "circle" }
+  ]
+}

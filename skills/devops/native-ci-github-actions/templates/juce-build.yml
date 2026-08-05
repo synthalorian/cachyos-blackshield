@@ -1,0 +1,123 @@
+name: Build
+
+# Working cross-platform CI for a JUCE 8 + CMake app (Standalone/VST3/CLAP).
+# Adapt: JUCE tag, apt deps, test target names, artefact paths.
+
+on:
+  push:
+    branches: [master]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write  # needed to create releases + upload assets on tag builds
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            name: linux-x86_64
+          - os: windows-latest
+            name: windows-x86_64
+          - os: macos-latest
+            name: macos-universal
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+
+      - name: Fetch JUCE (pinned)
+        # JUCE is usually not a submodule (local dev uses ~/.juce).
+        run: git clone --depth 1 --branch 8.0.12 https://github.com/juce-framework/JUCE.git "$RUNNER_TEMP/JUCE"
+
+      - name: Init plugin-format submodules
+        # --recursive: nested submodules (clap-libs/clap, clap-helpers)
+        run: git submodule update --init --recursive libs/clap-juce-extensions
+
+      - name: Init asset submodules (tag builds only)
+        if: startsWith(github.ref, 'refs/tags/')
+        run: git submodule update --init --recursive
+
+      - name: Install Linux dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            libasound2-dev libx11-dev libxext-dev libxinerama-dev \
+            libxrandr-dev libxcursor-dev libgl1-mesa-dev \
+            libfreetype6-dev libfontconfig1-dev
+
+      - name: Configure
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DJUCE_DIR="$RUNNER_TEMP/JUCE"
+
+      - name: Build
+        run: cmake --build build --config Release -j 4
+
+      - name: Run test suite
+        shell: bash
+        run: |
+          # Multi-config generators (VS/Xcode) nest binaries in build/Release/
+          if [ -x ./build/fx_tests ]; then
+            ./build/fx_tests
+          else
+            ./build/Release/fx_tests.exe
+          fi
+
+      - name: Package (Linux)
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          mkdir -p dist
+          tar -czf dist/app-${{ matrix.name }}-standalone.tar.gz \
+            -C build/App_artefacts/Release/Standalone .
+          tar -czf dist/app-${{ matrix.name }}-vst3.tar.gz \
+            -C build/App_artefacts/Release/VST3 "App.vst3"
+          tar -czf dist/app-${{ matrix.name }}-clap.tar.gz \
+            -C build/App_artefacts/Release/CLAP .
+
+      - name: Package (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path dist | Out-Null
+          $art = "build/App_artefacts/Release"
+          Compress-Archive -Path "$art/Standalone/*" -DestinationPath "dist/app-${{ matrix.name }}-standalone.zip"
+          Compress-Archive -Path "$art/VST3/App.vst3" -DestinationPath "dist/app-${{ matrix.name }}-vst3.zip"
+          Compress-Archive -Path "$art/CLAP/*" -DestinationPath "dist/app-${{ matrix.name }}-clap.zip"
+
+      - name: Package (macOS)
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          mkdir -p dist
+          cd build/App_artefacts/Release
+          zip -r "$GITHUB_WORKSPACE/dist/app-${{ matrix.name }}-standalone.zip" Standalone/
+          zip -r "$GITHUB_WORKSPACE/dist/app-${{ matrix.name }}-vst3.zip" "VST3/App.vst3"
+          zip -r "$GITHUB_WORKSPACE/dist/app-${{ matrix.name }}-clap.zip" CLAP/
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-${{ matrix.name }}
+          path: dist/
+          retention-days: 14
+
+      - name: Attach to release (tag builds)
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: bash  # pwsh would eat ${GITHUB_REF_NAME} on Windows runners
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" --title "${GITHUB_REF_NAME}" --generate-notes || true
+          gh release upload "${GITHUB_REF_NAME}" dist/* --clobber

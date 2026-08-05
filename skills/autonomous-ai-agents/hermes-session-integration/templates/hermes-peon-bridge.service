@@ -1,0 +1,14 @@
+[Unit]
+Description=Hermes-to-Peon-Pet JSONL Bridge
+After=default.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /home/synth/projects/peon-pet/hermes-bridge.py
+Restart=on-failure
+RestartSec=5
+Environment=DISPLAY=:0
+Environment=WAYLAND_DISPLAY=wayland-1
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,105 @@
+# Synthwave '84 — Alacritty (verified on CachyOS, 2026-07-22)
+# Palette: #240037 deep purple bg, #8F00FF electric purple,
+#          #FF7EDB hot pink, #FF00FF magenta, #F3E70F neon yellow
+# Green/cyan (#72F1B8/#03EDF9) from the actual Synthwave '84 VSCode theme.
+
+[general]
+import = []
+
+[window]
+padding = { x = 12, y = 12 }
+opacity = 0.92
+decorations = "None"
+startup_mode = "Maximized"
+title = "synthwave"
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[font]
+size = 12.0
+
+[font.normal]
+family = "3270 Nerd Font"
+style = "Regular"
+
+[font.bold]
+family = "3270 Nerd Font"
+style = "Regular"
+
+[font.italic]
+family = "3270 Nerd Font"
+style = "Regular"
+
+[font.bold_italic]
+family = "3270 Nerd Font"
+style = "Regular"
+
+[colors.primary]
+background = "#240037"
+foreground = "#FF7EDB"
+dim_foreground = "#7a5c99"
+bright_foreground = "#FFE8F9"
+
+[colors.cursor]
+text = "#240037"
+cursor = "#F3E70F"
+
+[colors.vi_mode_cursor]
+text = "#240037"
+cursor = "#8F00FF"
+
+[colors.selection]
+text = "#240037"
+background = "#8F00FF"
+
+[colors.search.matches]
+foreground = "#240037"
+background = "#F3E70F"
+
+[colors.search.focused_match]
+foreground = "#240037"
+background = "#FF00FF"
+
+[colors.footer_bar]
+foreground = "#240037"
+background = "#FF7EDB"
+
+[colors.normal]
+black   = "#240037"
+red     = "#FE4450"
+green   = "#72F1B8"
+yellow  = "#F3E70F"
+blue    = "#8F00FF"
+magenta = "#FF00FF"
+cyan    = "#03EDF9"
+white   = "#FF7EDB"
+
+[colors.bright]
+black   = "#495495"
+red     = "#FE4450"
+green   = "#72F1B8"
+yellow  = "#FEDE5D"
+blue    = "#B084EB"
+magenta = "#FF7EDB"
+cyan    = "#03EDF9"
+white   = "#FFFFFF"
+
+[colors.dim]
+black   = "#240037"
+red     = "#A32436"
+green   = "#3E8F6B"
+yellow  = "#8F8306"
+blue    = "#4B0080"
+magenta = "#800080"
+cyan    = "#027A82"
+white   = "#A4558F"
+
+[keyboard]
+bindings = [
+  { key = "F11", action = "ToggleFullscreen" },
+  { key = "Equals", mods = "Control", action = "IncreaseFontSize" },
+  { key = "Minus", mods = "Control", action = "DecreaseFontSize" },
+  { key = "Key0", mods = "Control", action = "ResetFontSize" },
+]

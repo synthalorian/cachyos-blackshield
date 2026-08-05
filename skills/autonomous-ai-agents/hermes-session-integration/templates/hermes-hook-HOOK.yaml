@@ -1,0 +1,14 @@
+name: my-hook-name
+description: >
+  Short description of what this hook does.
+  Fires at key lifecycle points in the Hermes gateway.
+events:
+  - session:start
+  - agent:start
+  - agent:end
+  - agent:step
+  - session:end
+  # Also available:
+  # - gateway:startup
+  # - session:reset
+  # - command:*  (wildcard, fires on any slash command)

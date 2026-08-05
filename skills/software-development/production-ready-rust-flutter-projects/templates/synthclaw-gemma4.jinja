@@ -1,0 +1,51 @@
+{{- bos_token }}
+{%- if messages[0]['role'] in ['system', 'developer'] -%}
+{%- set sys_msg = messages[0]['content'] | trim -%}
+{%- set loop_messages = messages[1:] -%}
+{%- else -%}
+{%- set sys_msg = "" -%}
+{%- set loop_messages = messages -%}
+{%- endif -%}
+{%- for message in loop_messages -%}
+{%- if message['role'] == 'user' -%}
+<|start_header_id|>user<|end_header_id|>
+
+{%- if sys_msg and loop.first -%}
+{{ sys_msg }}
+
+{%- endif -%}
+{%- if message['content'] is string -%}
+{{ message['content'] | trim -}}
+{%- elif message['content'] is sequence -%}
+{%- for item in message['content'] -%}{%- if item['type'] == 'text' -%}{{ item['text'] | trim }}{%- elif item['type'] == 'image' -%}[Image]{%- endif -%}{%- endfor -%}
+{%- endif -%}
+<|eot_id|>
+{%- elif message['role'] == 'assistant' -%}
+<|start_header_id|>assistant<|end_header_id|>
+
+{%- if message.get('reasoning') or message.get('reasoning_content') -%}
+{%- set rt = message.get('reasoning') or message.get('reasoning_content') -%}
+{{ rt }}
+
+{%- endif -%}
+{%- if message.get('tool_calls') -%}
+{%- for tc in message['tool_calls'] -%}
+Tool: {{ tc['function']['name'] }}({%- if tc['function']['arguments'] is mapping -%}{%- for k, v in tc['function']['arguments'] | dictsort -%}{{ k }}={{ v }}{%- if not loop.last %}, {% endif -%}{%- endfor -%}{%- elif tc['function']['arguments'] is string -%}{{ tc['function']['arguments'] }}{%- endif -%})
+{%- endfor -%}
+{%- elif message['content'] is string -%}
+{{ message['content'] | trim -}}
+{%- elif message['content'] is sequence -%}
+{%- for item in message['content'] -%}{%- if item['type'] == 'text' -%}{{ item['text'] | trim }}{%- endif -%}{%- endfor -%}
+{%- endif -%}
+<|eot_id|>
+{%- elif message['role'] == 'tool' -%}
+<|start_header_id|>tool<|end_header_id|>
+
+{{ message['content'] | trim }}
+<|eot_id|>
+{%- endif -%}
+{%- endfor -%}
+{%- if add_generation_prompt -%}
+<|start_header_id|>assistant<|end_header_id|>
+
+{%- endif -%}

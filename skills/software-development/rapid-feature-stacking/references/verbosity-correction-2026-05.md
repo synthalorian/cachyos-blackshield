@@ -1,0 +1,3 @@
+During a long GridOS desktop stacking session (May 2026), the user explicitly asked "are you actually doing anything?" after the agent spent multiple turns describing planned changes instead of making them. This triggered the addition of the "Verbosity Rule" to this skill.
+
+Lesson: In rapid iteration mode, action > narration. Users who say "keep stacking", "go for it", or give short affirmatives want visible code movement, not status theater.

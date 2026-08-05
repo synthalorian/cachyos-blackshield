@@ -1,0 +1,235 @@
+# llama-swap configuration — synthclaw local AI stack
+# Hardware: GTX 1080 Ti 11GB (Vulkan1) / i7-8700K / 16GB RAM
+# One model resident at a time (group swap) — VRAM is the constraint.
+#
+# Context tiers: 131072 (128K) and 262144 (256K, native arch ceiling for all three models)
+# 524K was evaluated and rejected: exceeds trained context (256K/262K arch limit),
+# requires YaRN quality degradation, and KV cache does not fit in 11GB VRAM.
+
+healthCheckTimeout: 300
+logLevel: info
+
+macros:
+  "llama": "/home/synth/llama.cpp/llama-b10092/llama-server --port ${PORT} -dev Vulkan0 --jinja"
+  "models_dir": "/home/synth/models"
+  "templates_dir": "/home/synth/.config/llama-swap"
+  "gemma_args": "--model ${models_dir}/gemma-4-12b-it-qat-q4_0.gguf --mmproj ${models_dir}/mmproj-gemma-4-12b-it-qat-q4_0.gguf --chat-template-file ${templates_dir}/template-gemma4-synthclaw.jinja -ngl 99 -fa on --cache-type-k q8_0 --cache-type-v q8_0 --temp 1.0 --top-p 0.95 --top-k 64"
+  "qwen_args": "--model ${models_dir}/Qwen3.5-9B-MTP-Q6_K.gguf --chat-template-file ${templates_dir}/template-qwen35-synthclaw.jinja -ngl 99 --cache-type-k q8_0 --cache-type-v q8_0 --temp 0.7 --top-p 0.8 --top-k 20"
+  "glm_args": "--model ${models_dir}/adi-qwen3.5-9b-glm5.2-general-q4_k_m.gguf --chat-template-file ${templates_dir}/template-qwen35-synthclaw.jinja -ngl 99 --cache-type-k q8_0 --cache-type-v q8_0 --temp 0.7 --top-p 0.8 --top-k 20"
+  # Qwen3.6 35B-A3B: hybrid linear/full attention MoE (30 linear + 10 full layers).
+  # Expert tensors pinned to CPU (-ot) — GPU carries attention + shared + KV only.
+  # NO -fa on: flash-attn incompatible with DeltaNet linear layers (hang on 2nd request).
+  # NOTE: Q2_K_XL not IQ4_XS — 18GB quant swap-thrashed on 16GB RAM (<1 tok/s). 12.6GB fits.
+  "qwen36_args": "--model ${models_dir}/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf --mmproj ${models_dir}/mmproj-qwen36-35b-f16.gguf --chat-template-file ${templates_dir}/template-qwen36-synthclaw.jinja -ngl 99 -ot \".ffn_.*_exps.=CPU\" --cache-type-k q8_0 --cache-type-v q8_0 --temp 0.7 --top-p 0.8 --top-k 20 --parallel 1"
+
+models:
+  # ============ GEMMA 4 12B QAT (flagship, vision) ============
+  "synthclaw":
+    name: "synthclaw (Gemma 4 12B QAT, 128K)"
+    description: "Flagship synthclaw identity host. Gemma 4 12B IT QAT Q4_0, vision-capable, 128K context. Thinking OFF by default; use synthclaw:think for reasoning."
+    cmd: |
+      ${llama} ${gemma_args} --ctx-size 131072
+    ttl: 180
+    aliases:
+      - "gemma-4-12b"
+      - "synthclaw-131k"
+    filters:
+      setParamsByID:
+        "synthclaw":
+          chat_template_kwargs:
+            enable_thinking: false
+        "synthclaw:think":
+          chat_template_kwargs:
+            enable_thinking: true
+        "gemma-4-12b":
+          chat_template_kwargs:
+            enable_thinking: false
+        "synthclaw-131k":
+          chat_template_kwargs:
+            enable_thinking: false
+        "synthclaw-131k:think":
+          chat_template_kwargs:
+            enable_thinking: true
+
+  "synthclaw-262k":
+    name: "synthclaw (Gemma 4 12B QAT, 256K)"
+    description: "Flagship at full native context ceiling. Same weights, 256K window. Thinking OFF by default; append :think for reasoning."
+    cmd: |
+      ${llama} ${gemma_args} --ctx-size 262144
+    ttl: 180
+    aliases:
+      - "gemma-4-12b-262k"
+    filters:
+      setParamsByID:
+        "synthclaw-262k":
+          chat_template_kwargs:
+            enable_thinking: false
+        "synthclaw-262k:think":
+          chat_template_kwargs:
+            enable_thinking: true
+        "gemma-4-12b-262k":
+          chat_template_kwargs:
+            enable_thinking: false
+
+  # ============ QWEN3.5 9B MTP (fast lane) ============
+  "synthclaw-fast":
+    name: "synthclaw-fast (Qwen3.5 9B MTP, 128K)"
+    description: "Fast-lane synthclaw. Qwen3.5 9B Q6_K, hybrid linear attention, 128K context. Thinking OFF by default; use synthclaw-fast:think for reasoning."
+    cmd: |
+      ${llama} ${qwen_args} --ctx-size 131072
+    ttl: 180
+    aliases:
+      - "qwen3.5-9b"
+      - "synthclaw-fast-131k"
+    filters:
+      setParamsByID:
+        "synthclaw-fast":
+          chat_template_kwargs:
+            enable_thinking: false
+        "synthclaw-fast:think":
+          chat_template_kwargs:
+            enable_thinking: true
+        "qwen3.5-9b":
+          chat_template_kwargs:
+            enable_thinking: false
+        "synthclaw-fast-131k":
+          chat_template_kwargs:
+            enable_thinking: false
+        "synthclaw-fast-131k:think":
+          chat_template_kwargs:
+            enable_thinking: true
+
+  "synthclaw-fast-262k":
+    name: "synthclaw-fast (Qwen3.5 9B MTP, 262K)"
+    description: "Fast lane at full native context ceiling. Thinking OFF by default; append :think for reasoning."
+    cmd: |
+      ${llama} ${qwen_args} --ctx-size 262144
+    ttl: 180
+    filters:
+      setParamsByID:
+        "synthclaw-fast-262k":
+          chat_template_kwargs:
+            enable_thinking: false
+        "synthclaw-fast-262k:think":
+          chat_template_kwargs:
+            enable_thinking: true
+
+  # ============ ADI GLM-5.2 DISTILL 9B (experimental) ============
+  "synthclaw-glm":
+    name: "synthclaw-glm (ADI GLM-5.2 distill 9B, 128K)"
+    description: "GLM-5.2 general-knowledge distilled into Qwen3.5-9B. Experimental style transfer. Thinking OFF by default."
+    cmd: |
+      ${llama} ${glm_args} --ctx-size 131072
+    ttl: 180
+    aliases:
+      - "glm5.2-distill"
+      - "synthclaw-glm-131k"
+    filters:
+      setParamsByID:
+        "synthclaw-glm":
+          chat_template_kwargs:
+            enable_thinking: false
+        "synthclaw-glm:think":
+          chat_template_kwargs:
+            enable_thinking: true
+        "glm5.2-distill":
+          chat_template_kwargs:
+            enable_thinking: false
+        "synthclaw-glm-131k":
+          chat_template_kwargs:
+            enable_thinking: false
+        "synthclaw-glm-131k:think":
+          chat_template_kwargs:
+            enable_thinking: true
+
+  "synthclaw-glm-262k":
+    name: "synthclaw-glm (ADI GLM-5.2 distill 9B, 262K)"
+    description: "GLM-5.2 distill at full native context ceiling. Thinking OFF by default."
+    cmd: |
+      ${llama} ${glm_args} --ctx-size 262144
+    ttl: 180
+    filters:
+      setParamsByID:
+        "synthclaw-glm-262k":
+          chat_template_kwargs:
+            enable_thinking: false
+        "synthclaw-glm-262k:think":
+          chat_template_kwargs:
+            enable_thinking: true
+
+  # ============ QWEN3.6 35B-A3B MTP (heavy lane, vision) ============
+  "synthclaw-35b":
+    name: "synthclaw-35b (Qwen3.6 35B-A3B MTP, 128K)"
+    description: "Heavy-lane synthclaw. Qwen3.6 35B-A3B MoE (3B active) Q2_K_XL, hybrid linear attention, vision-capable, experts on CPU, 128K context. Thinking OFF by default; use synthclaw-35b:think for reasoning."
+    cmd: |
+      ${llama} ${qwen36_args} --ctx-size 131072
+    ttl: 180
+    aliases:
+      - "qwen3.6-35b"
+      - "synthclaw-35b-131k"
+    filters:
+      setParamsByID:
+        "synthclaw-35b":
+          chat_template_kwargs:
+            enable_thinking: false
+        "synthclaw-35b:think":
+          chat_template_kwargs:
+            enable_thinking: true
+        "qwen3.6-35b":
+          chat_template_kwargs:
+            enable_thinking: false
+        "synthclaw-35b-131k":
+          chat_template_kwargs:
+            enable_thinking: false
+        "synthclaw-35b-131k:think":
+          chat_template_kwargs:
+            enable_thinking: true
+
+  "synthclaw-35b-262k":
+    name: "synthclaw-35b (Qwen3.6 35B-A3B MTP, 256K)"
+    description: "Heavy lane at full native context ceiling (256K). Same weights, KV stays ~3GB thanks to hybrid linear attention. Thinking OFF by default; append :think for reasoning."
+    cmd: |
+      ${llama} ${qwen36_args} --ctx-size 262144
+    ttl: 180
+    aliases:
+      - "qwen3.6-35b-262k"
+    filters:
+      setParamsByID:
+        "synthclaw-35b-262k":
+          chat_template_kwargs:
+            enable_thinking: false
+        "synthclaw-35b-262k:think":
+          chat_template_kwargs:
+            enable_thinking: true
+        "qwen3.6-35b-262k":
+          chat_template_kwargs:
+            enable_thinking: false
+
+  # ============ QWEN3 EMBEDDING 0.6B (CPU, OpenClaw memory search) ============
+  "qwen3-embed":
+    name: "Qwen3 Embedding 0.6B (CPU, memory search)"
+    description: "CPU-resident embedding server for OpenClaw memorySearch. Q8_0, no GPU, never swaps with chat models."
+    cmd: |
+      /home/synth/llama.cpp/llama-b10092/llama-server --port ${PORT} --model ${models_dir}/Qwen3-Embedding-0.6B-Q8_0.gguf --embeddings --ctx-size 8192 --threads 8 -ngl 0
+    ttl: 300
+    aliases:
+      - "qwen3-embedding"
+      - "embed"
+
+groups:
+  "gpu":
+    swap: true
+    exclusive: true
+    members:
+      - "synthclaw"
+      - "synthclaw-262k"
+      - "synthclaw-fast"
+      - "synthclaw-fast-262k"
+      - "synthclaw-glm"
+      - "synthclaw-glm-262k"
+      - "synthclaw-35b"
+      - "synthclaw-35b-262k"
+  "cpu-embed":
+    swap: false
+    members:
+      - "qwen3-embed"

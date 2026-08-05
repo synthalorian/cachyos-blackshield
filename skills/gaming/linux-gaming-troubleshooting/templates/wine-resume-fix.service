@@ -1,0 +1,11 @@
+[Unit]
+Description=Fix Wine display modes after Hyprland resume (user service)
+After=suspend.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/pkill -9 -f wine
+ExecStartPost=/usr/bin/sleep 2
+
+[Install]
+WantedBy=default.target

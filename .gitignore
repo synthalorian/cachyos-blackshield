@@ -1,0 +1,30 @@
+# Secrets & runtime state — never commit
+auth.json
+*.db
+*.db-shm
+*.db-wal
+*.lock
+*.pid
+*.log
+.env
+node_modules/
+__pycache__/
+.venv/
+*.gguf
+backups/
+# llama-swap backup of live config
+configs/llama-swap/config.yaml.bak
+configs/systemd/user/*.bak
+configs/systemd/user/default.target.wants/
+configs/llama-swap/synthclaw-identity.txt
+
+# Personal agent identity & private project data — canon lives in private synthclaw-identity repo
+configs/hermes/SOUL.md
+configs/hermes/memories/
+configs/hermes/cron-jobs.json
+configs/opencode/AGENTS.md
+configs/opencode/agents/
+skills/game-development/voidmercs-dev/
+skills/game-development/voidengine-dev/
+
+skills/synthshark-core/synthclaw/

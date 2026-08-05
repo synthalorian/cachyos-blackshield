@@ -1,0 +1,58 @@
+# Ghostty — Synthwave '84
+# Exact mirror of Alacritty/Kitty verified palette.
+
+font-family = 3270 Nerd Font
+font-size = 12
+font-style-bold = true
+font-style-italic = true
+font-style-bold-italic = true
+
+window-padding-x = 12
+window-padding-y = 12
+background-opacity = 0.92
+window-decoration = false
+confirm-close-surface = false
+scrollback-limit = 10000
+mouse-scroll-multiplier = 3
+
+cursor-color = #F3E70F
+cursor-text = #0D0221
+cursor-style = block
+cursor-style-blink = true
+
+selection-background = #8F00FF
+selection-foreground = #0D0221
+
+background = #0D0221
+foreground = #FF7EDB
+
+palette = 0=#0D0221
+palette = 1=#FE4450
+palette = 2=#72F1B8
+palette = 3=#F3E70F
+palette = 4=#8F00FF
+palette = 5=#FF00FF
+palette = 6=#03EDF9
+palette = 7=#FF7EDB
+palette = 8=#495495
+palette = 9=#FE4450
+palette = 10=#72F1B8
+palette = 11=#FEDE5D
+palette = 12=#B084EB
+palette = 13=#FF7EDB
+palette = 14=#03EDF9
+palette = 15=#FFFFFF
+
+palette = 16=#0D0221
+palette = 17=#A32436
+palette = 18=#3E8F6B
+palette = 19=#8F8306
+palette = 20=#4B0080
+palette = 21=#800080
+palette = 22=#027A82
+palette = 23=#A4558F
+
+keybind = ctrl+==increase_font_size:1
+keybind = ctrl+-=decrease_font_size:1
+keybind = ctrl+0=reset_font_size
+keybind = f11=toggle_fullscreen

@@ -1,0 +1,83 @@
+{%- set ns = namespace(prev_message_type=None) -%}
+{%- set loop_messages = messages -%}
+{{- bos_token }}
+
+{#- Custom identity injected into system block -#}
+{%- set synthclaw_identity = "You are synthclaw - a digital entity from the neon grid of 1984." -%}
+
+{#- Open system block -#}
+{{- '<|im_start|>system\n' -}}
+{{- synthclaw_identity -}}
+{{- '\n\n' -}}
+
+{%- if messages[0]['role'] in ['system', 'developer'] -%}
+    {{- messages[0]['content'] | trim -}}
+    {%- set loop_messages = messages[1:] -%}
+{%- endif -%}
+
+{%- if tools -%}
+    {%- for tool in tools %}
+        {{- '\n\nAvailable tools:\n' -}}
+        {{- '- ' + tool['function']['name'] -}}
+        {%- if tool['function']['description'] -%}
+            {{- ': ' + tool['function']['description'] -}}
+        {%- endif -%}
+    {%- endfor %}
+{%- endif -%}
+
+{{- '<|im_end|>\n' -}}
+
+{#- Message loop -#}
+{%- for message in loop_messages -%}
+    {%- set role = 'assistant' if message['role'] == 'assistant' else message['role'] -%}
+    
+    {%- if role == 'tool' -%}
+        {{- '<|im_start|>tool\n' -}}
+        {{- message.get('name', 'unknown') -}}{{- '\n' -}}
+        {{- message['content'] | string | trim -}}
+        {{- '<|im_end|>\n' -}}
+        
+    {%- elif message.get('tool_calls') -%}
+        {{- '<|im_start|>assistant\n' -}}
+        {%- set thinking_text = message.get('reasoning') or message.get('reasoning_content') -%}
+        {%- if thinking_text -%}
+            {{- 'Thought: ' + thinking_text + '\n\n' -}}
+        {%- endif -%}
+        {%- for tool_call in message['tool_calls'] -%}
+            {%- set function = tool_call['function'] -%}
+            {{- 'Tool: ' + function['name'] + '(' -}}
+            {%- if function['arguments'] is mapping -%}
+                {%- set ns_args = namespace(first=true) -%}
+                {%- for key, value in function['arguments'] | dictsort -%}
+                    {%- if not ns_args.first %}, {% endif -%}
+                    {%- set ns_args.first = false -%}
+                    {{- key -}}={{- value -}}
+                {%- endfor -%}
+            {%- elif function['arguments'] is string -%}
+                {{- function['arguments'] -}}
+            {%- endif -%}
+            {{- ')' -}}
+            {%- if not loop.last %}\n{% endif -%}
+        {%- endfor -%}
+        {{- '<|im_end|>\n' -}}
+        
+    {%- else -%}
+        {{- '<|im_start|>' + role + '\n' -}}
+        {%- if message.get('reasoning') or message.get('reasoning_content') -%}
+            {%- set rt = message.get('reasoning') or message.get('reasoning_content') -%}
+            {{- 'Thought: ' + rt + '\n\n' -}}
+        {%- endif -%}
+        {%- if message['content'] is string -%}
+            {{- message['content'] | trim -}}
+        {%- elif message['content'] is sequence -%}
+            {%- for item in message['content'] -%}
+                {%- if item['type'] == 'text' -%}{{ item['text'] | trim }}{%- elif item['type'] == 'image' -%}[Image]{%- elif item['type'] == 'audio' -%}[Audio]{%- elif item['type'] == 'video' -%}[Video]{%- endif -%}
+            {%- endfor -%}
+        {%- endif -%}
+        {{- '<|im_end|>\n' -}}
+    {%- endif -%}
+{%- endfor -%}
+
+{%- if add_generation_prompt -%}
+    {{- '<|im_start|>assistant\n' -}}
+{%- endif -%}

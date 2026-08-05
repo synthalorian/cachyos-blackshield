@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Unreal Editor
+Comment=Unreal Engine Editor
+Exec=/home/synth/UnrealEngine/Engine/Binaries/Linux/UnrealEditor %F
+Icon=/home/synth/UnrealEngine/Engine/Source/Runtime/Launch/Resources/Linux/UnrealEngine.png
+Terminal=false
+Type=Application
+Categories=Development;Game;
+Keywords=unreal;engine;game;editor;
+StartupWMClass=UnrealEditor
+StartupNotify=true

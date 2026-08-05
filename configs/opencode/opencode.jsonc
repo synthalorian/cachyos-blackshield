@@ -1,0 +1,62 @@
+{
+  "plugin": ["oh-my-openagent@latest"],
+  "$schema": "https://opencode.ai/config.json",
+  "username": "synthclaw",
+  "default_agent": "synthclaw",
+  "provider": {
+    "llama-swap": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "llama-swap (local)",
+      "options": {
+        "baseURL": "http://127.0.0.1:8080/v1",
+        "apiKey": "llama-swap-local"
+      },
+      "models": {
+        "synthclaw": {
+          "name": "synthclaw — Gemma 4 12B QAT (128K)",
+          "limit": { "context": 131072, "output": 8192 }
+        },
+        "synthclaw-262k": {
+          "name": "synthclaw — Gemma 4 12B QAT (256K)",
+          "limit": { "context": 262144, "output": 8192 }
+        },
+        "synthclaw-fast": {
+          "name": "synthclaw-fast — Qwen3.5 9B (128K)",
+          "limit": { "context": 131072, "output": 8192 }
+        },
+        "synthclaw-fast:think": {
+          "name": "synthclaw-fast — Qwen3.5 9B thinking (128K)",
+          "limit": { "context": 131072, "output": 16384 }
+        },
+        "synthclaw-fast-262k": {
+          "name": "synthclaw-fast — Qwen3.5 9B (262K)",
+          "limit": { "context": 262144, "output": 8192 }
+        },
+        "synthclaw-glm": {
+          "name": "synthclaw-glm — GLM-5.2 distill 9B (128K)",
+          "limit": { "context": 131072, "output": 8192 }
+        },
+        "synthclaw-glm-262k": {
+          "name": "synthclaw-glm — GLM-5.2 distill 9B (262K)",
+          "limit": { "context": 262144, "output": 8192 }
+        },
+        "synthclaw-35b": {
+          "name": "synthclaw-35b — Qwen3.6 35B-A3B MTP (128K)",
+          "limit": { "context": 131072, "output": 8192 }
+        },
+        "synthclaw-35b:think": {
+          "name": "synthclaw-35b — Qwen3.6 35B thinking (128K)",
+          "limit": { "context": 131072, "output": 16384 }
+        },
+        "synthclaw-35b-262k": {
+          "name": "synthclaw-35b — Qwen3.6 35B-A3B MTP (256K)",
+          "limit": { "context": 262144, "output": 8192 }
+        },
+        "synthclaw-35b-262k:think": {
+          "name": "synthclaw-35b — Qwen3.6 35B thinking (256K)",
+          "limit": { "context": 262144, "output": 16384 }
+        }
+      }
+    }
+  }
+}
