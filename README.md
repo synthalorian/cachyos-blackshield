@@ -54,7 +54,7 @@ Run a single phase: `./install.sh configs` (or packages/system/projects/ai/servi
 configs/          fish, alacritty, kitty, fastfetch, nvim, kde, git,
                   system (plasmalogin.conf, greeter kdeglobals, plymouthd.conf,
                           zram-2x.conf, tmpfiles.d-cpu-governor.conf),
-                  limine (boot menu branding + splash text; panel runs stock native 2560x1440),
+                  limine (boot menu branding + splash text + edid/ SKG 2560x1080 override),
                   plymouth (synthwave84 boot splash theme),
                   llama-swap, hermes (SOUL/memories/scripts/cron), opencode, systemd,
                   icons (Synthwave cursor, candy-icons), fonts (3270 Nerd Font),
