@@ -100,15 +100,25 @@ phase_browsers() {
 
   # ── Firefox: userChrome.css / userContent.css / user.js per profile ──
   if command -v firefox &>/dev/null; then
-    # create a profile if firefox has never been launched
-    if ! ls -d "$HOME_DIR/.mozilla/firefox/"*.default* &>/dev/null; then
-      say "no firefox profile yet — creating one headlessly"
-      timeout 30 firefox --headless --screenshot /tmp/.ff-profile-seed.png about:blank &>/dev/null || true
-      rm -f /tmp/.ff-profile-seed.png
+    local ff_root="$HOME_DIR/.mozilla/firefox"
+    # Firefox 150+ headless runs on a throwaway profile and never creates the
+    # install-default one — but a headless run with an explicit -profile DOES
+    # materialize installs.ini + the install-default profile dir.
+    if [[ ! -f "$ff_root/installs.ini" ]]; then
+      say "no firefox profile yet — seeding one headlessly"
+      mkdir -p "$ff_root"
+      local seedprof="$ff_root/.seed-synthwave84"
+      timeout 25 firefox --headless -profile "$seedprof" about:blank &>/dev/null || true
+      rm -rf "$seedprof"
     fi
+    # resolve targets: installs.ini Default first, then every *.default* dir
     local ff_profiles=()
-    while IFS= read -r -d '' prof; do ff_profiles+=("$prof"); done \
-      < <(find "$HOME_DIR/.mozilla/firefox" -maxdepth 1 -type d -name '*.default*' -print0 2>/dev/null)
+    local ini_default
+    ini_default=$(awk -F= '/^Default=/{print $2; exit}' "$ff_root/installs.ini" 2>/dev/null)
+    [[ -n "$ini_default" && -d "$ff_root/$ini_default" ]] && ff_profiles+=("$ff_root/$ini_default")
+    while IFS= read -r -d '' prof; do
+      [[ " ${ff_profiles[*]:-} " == *" $prof "* ]] || ff_profiles+=("$prof")
+    done < <(find "$ff_root" -maxdepth 1 -type d -name '*.default*' ! -name '.seed-*' -print0 2>/dev/null)
     if [[ ${#ff_profiles[@]} -eq 0 ]]; then
       warn "still no firefox profile — launch Firefox once, then re-run: ./install.sh browsers"
     else
