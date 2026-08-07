@@ -11,12 +11,12 @@ Patterns encoded from real debugging sessions on this machine.
 
 ## Limine Bootloader Theming
 
-Canonical config: `cachyos-setup/configs/limine/limine.conf`. Deployed to `/boot/` via handoff script.
+Canonical config: `cachyos-synthwave84/configs/limine/limine.conf`. Deployed to `/boot/` via handoff script.
 
 ### Pitfalls
 1. **Malformed hex kills readability:** stray prefix on `term_*` hex values (e.g. `E6240037` instead of `240037`) causes invalid-color overlay crowding branding text. Always validate 6 hex chars exactly.
 2. **Splash + terminal overlay:** when `wallpaper` is set, Limine still renders terminal overlay on top. Pick `term_foreground` carefully: cyan `#03EDF9` or white `#FFFFFF` work on dark art; hot pink `#FF7EDB` usually fails.
-3. **Canonical source is cachyos-setup:** editing `/boot/limine.conf` directly won't survive reboot. Use handoff.
+3. **Canonical source is cachyos-synthwave84:** editing `/boot/limine.conf` directly won't survive reboot. Use handoff.
 
 ### Verified Synthwave '84 Config
 ```
@@ -30,9 +30,9 @@ wallpaper: boot():/limine-splash-synthwave.png
 
 ## Fish Function Library
 
-Single-file-per-function in `~/.config/fish/functions/`. Handoff syncs from `cachyos-setup/configs/fish/functions/`.
+Single-file-per-function in `~/.config/fish/functions/`. Handoff syncs from `cachyos-synthwave84/configs/fish/functions/`.
 
-**Edit workflow:** edit `.fish` in cachyos-setup, run handoff script. Never edit only in `~/.config/fish/functions/` — reboot clobbers it.
+**Edit workflow:** edit `.fish` in cachyos-synthwave84, run handoff script. Never edit only in `~/.config/fish/functions/` — reboot clobbers it.
 
 ### Fish Quirks (this machine)
 1. `alias ~='cd ~'` crashes on source — `~` conflicts with expansion token. Remove it.

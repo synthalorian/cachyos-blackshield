@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # ═══════════════════════════════════════════════════════════════════
-#  cachyos-setup — synth's full-system bootstrap
+#  cachyos-synthwave84 — synth's full-system bootstrap
 #  Fresh CachyOS install -> fully working grid in one script.
 #  Made by synth with synthclaw 🎹🦞
 #
 #  Usage (after gh auth login):
-#    gh repo clone synthalorian/cachyos-setup && cd cachyos-setup && ./install.sh
+#    gh repo clone synthalorian/cachyos-synthwave84 && cd cachyos-synthwave84 && ./install.sh
 #
 #  Phases can be run individually: ./install.sh packages|configs|browsers|system|projects|ai|services|nvim
 # ═══════════════════════════════════════════════════════════════════

@@ -57,7 +57,7 @@ Limine is its own theming layer between firmware and Linux — separate from pla
 
 ### Config location
 
-- Source of truth: `~/Projects/active/cachyos-setup/configs/limine/limine.conf`
+- Source of truth: `~/Projects/active/cachyos-synthwave84/configs/limine/limine.conf`
 - Deployed target: `/boot/limine.conf`
 - Deploy command: `sudo cp -f <source> /boot/limine.conf && sudo limine-install`
 

@@ -13,8 +13,8 @@ description: >
 
 synth's editor: neovim with a hand-rolled lazy.nvim config (NOT a distro like
 LazyVim/NvChad) and the synthwave84 colorscheme. The full known-good config is
-backed up in the PRIVATE `cachyos-setup` repo (`configs/nvim/`,
-github.com/synthalorian/cachyos-setup) — restore from there instead of
+backed up in the PRIVATE `cachyos-synthwave84` repo (`configs/nvim/`,
+github.com/synthalorian/cachyos-synthwave84) — restore from there instead of
 rebuilding from scratch when possible.
 
 ## Install + Wire as Default Editor (CachyOS/Arch)

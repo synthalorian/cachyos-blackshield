@@ -2,7 +2,7 @@
 
 ## Session-tested config: synthwave '84
 
-- Source: `cachyos-setup/configs/limine/limine.conf`
+- Source: `cachyos-synthwave84/configs/limine/limine.conf`
 - Deploy to: `/boot/limine.conf`
 - Splash files: `/boot/limine-splash.png`, `/boot/limine-splash-synthwave.png`
 
@@ -28,7 +28,7 @@
 ## Refresh sequence (post-edit)
 
 ```bash
-cd ~/Projects/active/cachyos-setup
+cd ~/Projects/active/cachyos-synthwave84
 git add configs/limine/limine.conf
 git commit -m '...'
 git push

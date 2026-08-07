@@ -1,17 +1,17 @@
 ---
 name: config-backup-sync
-description: Sync a live Linux system into a versioned config backup repo (synth's cachyos-setup). Pairwise repo↔live drift detection, runtime-churn filtering, manifest regeneration, and push workflow. Complements reproducible-setup (which covers initial repo structure and sanitization).
+description: Sync a live Linux system into a versioned config backup repo (synth's cachyos-synthwave84). Pairwise repo↔live drift detection, runtime-churn filtering, manifest regeneration, and push workflow. Complements reproducible-setup (which covers initial repo structure and sanitization).
 ---
 
 # Config Backup Sync
 
-Keep a config backup repo current with the live system. Synth's active repo: `cachyos-setup` at `~/Projects/active/cachyos-setup` (private, `synthalorian/cachyos-setup`). For repo structure, sanitization rules, and secret purging, see the `reproducible-setup` skill — this skill covers the recurring *sync* workflow.
+Keep a config backup repo current with the live system. Synth's active repo: `cachyos-synthwave84` at `~/Projects/active/cachyos-synthwave84` (private, `synthalorian/cachyos-synthwave84`). For repo structure, sanitization rules, and secret purging, see the `reproducible-setup` skill — this skill covers the recurring *sync* workflow.
 
 ## Core Method: Pairwise Diff, Not mtime Scan
 
 Do NOT discover changes with `find -newermt` — browser caches, session DBs, and logs drown real changes in noise. Instead:
 
-1. Build the explicit repo-file ↔ live-file mapping (see [references/cachyos-setup-sync-map.md](references/cachyos-setup-sync-map.md) for the full table).
+1. Build the explicit repo-file ↔ live-file mapping (see [references/cachyos-synthwave84-sync-map.md](references/cachyos-synthwave84-sync-map.md) for the full table).
 2. Byte-compare each pair (`cmp`/`diff`).
 3. Sync only pairs that differ semantically.
 
@@ -45,4 +45,4 @@ Rule: if the diff is only timestamps/counters, don't copy.
 
 ## References
 
-- [references/cachyos-setup-sync-map.md](references/cachyos-setup-sync-map.md) — full repo↔live file mapping for cachyos-setup, plus regeneration commands
+- [references/cachyos-synthwave84-sync-map.md](references/cachyos-synthwave84-sync-map.md) — full repo↔live file mapping for cachyos-synthwave84, plus regeneration commands

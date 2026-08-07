@@ -36,7 +36,7 @@ Class-level playbook for decking out Linux terminals on synth's system (CachyOS/
 
 ## Fish function library (versioned)
 
-**Source of truth:** `~/Projects/active/cachyos-setup/configs/fish/functions/`  
+**Source of truth:** `~/Projects/active/cachyos-synthwave84/configs/fish/functions/`  
 **Live target:** `~/.config/fish/functions/`  
 **Sync:** `handoff-post-reboot.sh` copies every `.fish` file from source → target on each reboot/polish run.
 
