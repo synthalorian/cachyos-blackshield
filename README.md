@@ -1,4 +1,4 @@
-# cachyos-setup 🎹🦞
+# cachyos-synthwave84 🎹🦞
 
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
 ![CachyOS](https://img.shields.io/badge/distro-CachyOS_Arch-yellow)
@@ -17,8 +17,8 @@ OpenCode config, and systemd user services.
 
 ```bash
 sudo pacman -S --needed --noconfirm git github-cli && gh auth login \
-  && gh repo clone synthalorian/cachyos-setup \
-  && cd cachyos-setup && ./install.sh
+  && gh repo clone synthalorian/cachyos-synthwave84 \
+  && cd cachyos-synthwave84 && ./install.sh
 ```
 
 ## What install.sh does
@@ -27,6 +27,7 @@ sudo pacman -S --needed --noconfirm git github-cli && gh auth login \
 |---|---|
 | 1 packages | Full `pacman -Syu`, then every explicit package from `manifest/packages.txt` |
 | 2 configs | fish, alacritty, kitty, fastfetch, nvim, KDE (kwinrc/kdeglobals/plasma/panels/themes), Synthwave cursor + candy-icons, 3270 Nerd Font, plasmoids, wallpapers, git, chsh→fish, Ghostty + Fish wrappers + KWin effects |
+| 2a browsers | Firefox userChrome/userContent synthwave '84 theme per profile (+ headless profile seed), Chromium unpacked theme staged at ~/.config/chromium-themes (one manual load step — docs/BROWSERS.md) |
 | 2b system | (sudo) Plymouth synthwave84 boot splash + initramfs rebuild, Plasma Login Manager: config, greeter kdeglobals (3270 Nerd Font), login wallpaper |
 | 2c tuning | CPU governor → performance on boot, zram 2x swap, Limine boot menu branding + boot splash text overlay, Ghostty theme sync |
 | 3 projects | Clones all 111 repos into `~/Projects/{active,archived,backburner,finished,forks,faith}` (8 parallel, skips existing) |
@@ -52,6 +53,8 @@ Run a single phase: `./install.sh configs` (or packages/system/projects/ai/servi
 
 ```
 configs/          fish, alacritty, kitty, fastfetch, nvim, kde, git,
+                  browsers (firefox userChrome/userContent + chromium theme,
+                            striped-sun NTP art),
                   system (plasmalogin.conf, greeter kdeglobals, plymouthd.conf,
                           zram-2x.conf, tmpfiles.d-cpu-governor.conf),
                   limine (boot menu branding + splash text + edid/ SKG 2560x1080 override),
@@ -63,7 +66,7 @@ wallpapers/       ~/Pictures/synthwave + synth.png (Testarossa/DeLorean set)
                   + synthwave84-lock-login (lock/login screen set, incl. taskbar icons)
 skills/           all 240 Hermes skills (~/.hermes/skills)
 manifest/         packages.txt (292 pacman-explicit), projects.tsv (111 repos)
-docs/             MODELS.md (weights), SECRETS.md (what to fill in)
+docs/             MODELS.md (weights), SECRETS.md (what to fill in), BROWSERS.md (browser themes)
 install.sh        the bootstrap
 handoff-post-reboot.sh  post-reboot finisher (limine+EDID, plymouth, plasmalogin, fish, services)
 ```

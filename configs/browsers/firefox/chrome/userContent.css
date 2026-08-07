@@ -1,0 +1,165 @@
+/* ============================================================
+   Synthwave '84 — Firefox content pages (userContent.css)
+   Themes built-in pages: about:newtab, about:home,
+   about:privatebrowsing, reader mode, view-source accents.
+   Web content is NOT touched — this only styles about:* pages.
+   ============================================================ */
+
+@-moz-document url(about:newtab), url(about:home) {
+  :root {
+    --sw84-bg:        #240037;
+    --sw84-bg-deep:   #0D0221;
+    --sw84-fg:        #FF7EDB;
+    --sw84-fg-dim:    #B57EDB;
+    --sw84-magenta:   #FF00FF;
+    --sw84-purple:    #8F00FF;
+    --sw84-midpurple: #4B0080;
+    --sw84-cyan:      #03EDF9;
+    --sw84-green:     #72F1B8;
+    --sw84-yellow:    #F3E70F;
+    --sw84-red:       #FE4450;
+
+    --newtab-background-color: var(--sw84-bg-deep) !important;
+    --newtab-text-primary-color: var(--sw84-fg) !important;
+    --newtab-text-secondary-color: var(--sw84-fg-dim) !important;
+    --newtab-card-background-color: var(--sw84-bg) !important;
+    --newtab-border-primary-color: var(--sw84-midpurple) !important;
+    --newtab-element-hover-color: var(--sw84-midpurple) !important;
+    --newtab-element-active-color: var(--sw84-purple) !important;
+  }
+
+  body {
+    /* striped-sun synthwave art shipped alongside this file in chrome/ */
+    background: var(--sw84-bg-deep) url("ntp_background.png") no-repeat center bottom / cover fixed !important;
+    color: var(--sw84-fg) !important;
+  }
+
+  /* search box */
+  .search-wrapper .search-handoff-button,
+  .search-wrapper input {
+    background-color: var(--sw84-bg) !important;
+    color: var(--sw84-fg) !important;
+    border: 1px solid var(--sw84-midpurple) !important;
+    border-radius: 10px !important;
+    caret-color: var(--sw84-yellow) !important;
+  }
+
+  .search-wrapper .search-handoff-button:focus,
+  .search-wrapper input:focus {
+    border-color: var(--sw84-magenta) !important;
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.4) !important;
+  }
+
+  /* shortcut tiles */
+  .top-site-outer .top-site-inner {
+    background-color: var(--sw84-bg) !important;
+    border: 1px solid var(--sw84-bg) !important;
+  }
+
+  .top-site-outer:is(:hover, :focus, .active) .top-site-inner {
+    border-color: var(--sw84-magenta) !important;
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.35) !important;
+  }
+
+  .top-site-outer .title {
+    color: var(--sw84-fg) !important;
+  }
+
+  .top-site-outer .title .sponsored-label {
+    color: var(--sw84-fg-dim) !important;
+  }
+
+  /* section headers */
+  .section-title span,
+  .section-title .section-title-text {
+    color: var(--sw84-cyan) !important;
+  }
+
+  /* pocket / stories cards */
+  .ds-card,
+  .card-outer {
+    background-color: var(--sw84-bg) !important;
+    color: var(--sw84-fg) !important;
+    border: 1px solid transparent !important;
+  }
+
+  .ds-card:hover,
+  .card-outer:hover {
+    border-color: var(--sw84-magenta) !important;
+  }
+
+  .ds-card .meta .title,
+  .card-outer .title {
+    color: var(--sw84-fg) !important;
+  }
+
+  .ds-card .meta .source,
+  .ds-card .meta .excerpt {
+    color: var(--sw84-fg-dim) !important;
+  }
+
+  /* personalize / gear panel */
+  .personalize-button,
+  .icon-settings {
+    fill: var(--sw84-fg) !important;
+    color: var(--sw84-fg) !important;
+  }
+
+  /* context menus on the newtab page */
+  .context-menu {
+    background-color: var(--sw84-bg-deep) !important;
+    color: var(--sw84-fg) !important;
+    border: 1px solid var(--sw84-purple) !important;
+  }
+
+  .context-menu .context-menu-item:hover {
+    background-color: var(--sw84-midpurple) !important;
+  }
+}
+
+/* ── Private browsing page ─────────────────────────────── */
+@-moz-document url(about:privatebrowsing) {
+  body {
+    background: linear-gradient(180deg, #0D0221 0%, #240037 70%, #3B0A2E 100%) !important;
+    color: #FF7EDB !important;
+  }
+
+  .private-browsing-notice,
+  h1, h2, p {
+    color: #FF7EDB !important;
+  }
+
+  a {
+    color: #03EDF9 !important;
+  }
+
+  button, .button {
+    background-color: #8F00FF !important;
+    color: #FFFFFF !important;
+  }
+}
+
+/* ── Reader mode ───────────────────────────────────────── */
+@-moz-document url-prefix("about:reader") {
+  body {
+    --sw84-bg: #240037;
+    --sw84-fg: #FF7EDB;
+  }
+
+  body.dark {
+    background-color: #0D0221 !important;
+    color: #FF7EDB !important;
+  }
+
+  body.dark h1, body.dark h2, body.dark h3 {
+    color: #FF7EDB !important;
+  }
+
+  body.dark a {
+    color: #03EDF9 !important;
+  }
+
+  body.dark blockquote {
+    border-inline-start-color: #8F00FF !important;
+  }
+}

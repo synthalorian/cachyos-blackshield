@@ -7,7 +7,7 @@
 #  Usage (after gh auth login):
 #    gh repo clone synthalorian/cachyos-setup && cd cachyos-setup && ./install.sh
 #
-#  Phases can be run individually: ./install.sh packages|configs|system|projects|ai|services|nvim
+#  Phases can be run individually: ./install.sh packages|configs|browsers|system|projects|ai|services|nvim
 # ═══════════════════════════════════════════════════════════════════
 set -euo pipefail
 
@@ -92,6 +92,50 @@ phase_configs() {
   fi
 
   ok "configs restored (log out/in for shell + KDE to fully apply)"
+}
+
+# ─────────────────────────────────────────────────────────────────
+phase_browsers() {
+  say "Phase 2a: browser themes (firefox + chromium) — synthwave '84"
+
+  # ── Firefox: userChrome.css / userContent.css / user.js per profile ──
+  if command -v firefox &>/dev/null; then
+    # create a profile if firefox has never been launched
+    if ! ls -d "$HOME_DIR/.mozilla/firefox/"*.default* &>/dev/null; then
+      say "no firefox profile yet — creating one headlessly"
+      timeout 30 firefox --headless --screenshot /tmp/.ff-profile-seed.png about:blank &>/dev/null || true
+      rm -f /tmp/.ff-profile-seed.png
+    fi
+    local ff_profiles=()
+    while IFS= read -r -d '' prof; do ff_profiles+=("$prof"); done \
+      < <(find "$HOME_DIR/.mozilla/firefox" -maxdepth 1 -type d -name '*.default*' -print0 2>/dev/null)
+    if [[ ${#ff_profiles[@]} -eq 0 ]]; then
+      warn "still no firefox profile — launch Firefox once, then re-run: ./install.sh browsers"
+    else
+      for prof in "${ff_profiles[@]}"; do
+        mkdir -p "$prof/chrome"
+        cp -r "$REPO_DIR/configs/browsers/firefox/chrome/"* "$prof/chrome/"
+        if ! grep -q "synthwave84" "$prof/user.js" 2>/dev/null; then
+          cat "$REPO_DIR/configs/browsers/firefox/user.js" >> "$prof/user.js"
+        fi
+        ok "firefox synthwave '84 deployed -> $(basename "$prof") (restart Firefox to apply)"
+      done
+    fi
+  else
+    warn "firefox not installed — skipping firefox theme"
+  fi
+
+  # ── Chromium: unpacked theme (developer-mode load) ──
+  if command -v chromium &>/dev/null || command -v chromium-browser &>/dev/null; then
+    mkdir -p "$HOME_DIR/.config/chromium-themes"
+    rm -rf "$HOME_DIR/.config/chromium-themes/synthwave84"
+    cp -r "$REPO_DIR/configs/browsers/chromium/synthwave84" "$HOME_DIR/.config/chromium-themes/synthwave84"
+    ok "chromium theme staged at ~/.config/chromium-themes/synthwave84"
+    warn "chromium blocks CLI theme installs — one-time manual step:"
+    echo  "       chrome://extensions -> enable Developer mode -> Load unpacked -> ~/.config/chromium-themes/synthwave84"
+  else
+    warn "chromium not installed — skipping chromium theme"
+  fi
 }
 
 # ─────────────────────────────────────────────────────────────────
@@ -235,7 +279,7 @@ finale() {
 main() {
   local phases=("${@:-all}")
   if [[ "${1:-all}" == "all" ]]; then
-    phases=(packages configs system projects ai services nvim)
+    phases=(packages configs browsers system projects ai services nvim)
   fi
   for p in "${phases[@]}"; do
     "phase_$p"

@@ -1,0 +1,301 @@
+/* ============================================================
+   Synthwave '84 — Firefox chrome (userChrome.css)
+   Palette canon (matches Ghostty/KDE/Limine/Plymouth):
+     bg #240037 · deep #0D0221 · fg #FF7EDB · magenta #FF00FF
+     purple #8F00FF · mid-purple #4B0080 · cyan #03EDF9
+     green #72F1B8 · yellow #F3E70F · red #FE4450
+     dim-fg #B57EDB · help #B084EB
+   ============================================================ */
+
+:root {
+  --sw84-bg:        #240037;
+  --sw84-bg-deep:   #0D0221;
+  --sw84-bg-inact:  #140535;
+  --sw84-fg:        #FF7EDB;
+  --sw84-fg-dim:    #B57EDB;
+  --sw84-magenta:   #FF00FF;
+  --sw84-purple:    #8F00FF;
+  --sw84-midpurple: #4B0080;
+  --sw84-cyan:      #03EDF9;
+  --sw84-green:     #72F1B8;
+  --sw84-yellow:    #F3E70F;
+  --sw84-red:       #FE4450;
+
+  /* Firefox system vars — make native UI (menus, panels, sidebars) follow */
+  --toolbar-bgcolor: var(--sw84-bg) !important;
+  --toolbar-color: var(--sw84-fg) !important;
+  --lwt-accent-color: var(--sw84-bg) !important;
+  --lwt-text-color: var(--sw84-fg) !important;
+  --arrowpanel-background: var(--sw84-bg-deep) !important;
+  --arrowpanel-color: var(--sw84-fg) !important;
+  --arrowpanel-border-color: var(--sw84-purple) !important;
+  --panel-separator-color: var(--sw84-midpurple) !important;
+  --urlbar-box-bgcolor: var(--sw84-bg-deep) !important;
+  --urlbar-box-text-color: var(--sw84-fg) !important;
+  --urlbar-box-hover-bgcolor: var(--sw84-midpurple) !important;
+  --urlbar-box-active-bgcolor: var(--sw84-midpurple) !important;
+  --toolbarbutton-hover-background: rgba(143, 0, 255, 0.35) !important;
+  --toolbarbutton-active-background: rgba(143, 0, 255, 0.55) !important;
+  --lwt-sidebar-background-color: var(--sw84-bg-deep) !important;
+  --lwt-sidebar-text-color: var(--sw84-fg) !important;
+  --sidebar-background-color: var(--sw84-bg-deep) !important;
+  --sidebar-text-color: var(--sw84-fg) !important;
+  --tab-loading-fill: var(--sw84-cyan) !important;
+  --toolbox-text-color: var(--sw84-fg) !important;
+}
+
+/* ── Main window + toolbox ─────────────────────────────── */
+#main-window,
+#navigator-toolbox {
+  background-color: var(--sw84-bg) !important;
+  color: var(--sw84-fg) !important;
+}
+
+#navigator-toolbox {
+  border-bottom: 1px solid var(--sw84-midpurple) !important;
+}
+
+/* inactive window chrome — dim like KDE inactive borders */
+#main-window:-moz-window-inactive #navigator-toolbox {
+  background-color: var(--sw84-bg-inact) !important;
+  color: var(--sw84-fg-dim) !important;
+}
+
+/* ── URL bar — the neon command line ───────────────────── */
+#urlbar {
+  --urlbar-height: 30px !important;
+}
+
+#urlbar-background,
+#searchbar {
+  background-color: var(--sw84-bg-deep) !important;
+  color: var(--sw84-fg) !important;
+  border: 1px solid var(--sw84-midpurple) !important;
+  border-radius: 8px !important;
+}
+
+#urlbar[focused] > #urlbar-background,
+#searchbar:focus-within {
+  border-color: var(--sw84-magenta) !important;
+  box-shadow: 0 0 8px rgba(255, 0, 255, 0.45),
+              inset 0 0 4px rgba(255, 0, 255, 0.15) !important;
+}
+
+.urlbar-input,
+.searchbar-textbox {
+  color: var(--sw84-fg) !important;
+  caret-color: var(--sw84-yellow) !important;
+}
+
+.urlbar-input::placeholder,
+.searchbar-textbox::placeholder {
+  color: var(--sw84-fg-dim) !important;
+}
+
+/* urlbar selection: purple block, dark text (Ghostty selection convention) */
+.urlbar-input::selection,
+.searchbar-textbox::selection {
+  background: var(--sw84-purple) !important;
+  color: var(--sw84-bg-deep) !important;
+}
+
+/* urlbar view dropdown */
+#urlbar-results,
+.urlbarView {
+  background-color: var(--sw84-bg-deep) !important;
+  color: var(--sw84-fg) !important;
+}
+
+.urlbarView-row[selected] {
+  background-color: var(--sw84-midpurple) !important;
+  color: var(--sw84-fg) !important;
+}
+
+.urlbarView-url {
+  color: var(--sw84-cyan) !important;
+}
+
+.urlbarView-action,
+.urlbarView-row[type="switchtab"] .urlbarView-title::after {
+  color: var(--sw84-green) !important;
+}
+
+/* ── Tabs — powerline neon ─────────────────────────────── */
+.tabbrowser-tab {
+  color: var(--sw84-fg-dim) !important;
+}
+
+.tabbrowser-tab .tab-background {
+  background-color: var(--sw84-bg-inact) !important;
+  border-radius: 8px 8px 0 0 !important;
+  border: 1px solid transparent !important;
+  border-bottom: none !important;
+}
+
+.tabbrowser-tab:hover .tab-background {
+  background-color: var(--sw84-midpurple) !important;
+  color: var(--sw84-fg) !important;
+}
+
+/* selected tab: Ghostty tab-chrome convention — fg on pink */
+.tabbrowser-tab[selected] .tab-background {
+  background-color: var(--sw84-fg) !important;
+  border-color: var(--sw84-magenta) !important;
+}
+
+.tabbrowser-tab[selected] .tab-label {
+  color: var(--sw84-bg) !important;
+  font-weight: 600 !important;
+}
+
+/* unread / attention pulses */
+.tabbrowser-tab[unread]:not([selected]) .tab-label,
+.tabbrowser-tab[attention]:not([selected]) .tab-label {
+  color: var(--sw84-cyan) !important;
+}
+
+.tab-close-button {
+  fill: currentColor !important;
+}
+
+/* tab bar bottom accent line under selected tab */
+.tabbrowser-tab[selected] .tab-background {
+  box-shadow: 0 -2px 0 var(--sw84-magenta) inset !important;
+}
+
+#TabsToolbar {
+  background-color: var(--sw84-bg) !important;
+}
+
+#new-tab-button .toolbarbutton-icon,
+.tabbrowser-tab .tab-icon-image {
+  fill: var(--sw84-fg) !important;
+}
+
+/* ── Bookmarks bar ─────────────────────────────────────── */
+#PersonalToolbar {
+  background-color: var(--sw84-bg) !important;
+  color: var(--sw84-fg) !important;
+  border-top: 1px solid var(--sw84-bg-inact) !important;
+}
+
+#PersonalToolbar .toolbarbutton-1,
+.bookmark-item {
+  color: var(--sw84-fg) !important;
+  border-radius: 6px !important;
+}
+
+#PersonalToolbar .toolbarbutton-1:hover,
+.bookmark-item:hover {
+  background-color: var(--sw84-midpurple) !important;
+}
+
+/* ── Toolbar buttons / icons ───────────────────────────── */
+toolbarbutton .toolbarbutton-icon,
+.toolbarbutton-badge-stack {
+  fill: var(--sw84-fg) !important;
+}
+
+#back-button .toolbarbutton-icon,
+#forward-button .toolbarbutton-icon,
+#reload-button .toolbarbutton-icon {
+  fill: var(--sw84-cyan) !important;
+}
+
+/* ── Menus & panels ────────────────────────────────────── */
+menupopup,
+panel {
+  --panel-background: var(--sw84-bg-deep) !important;
+  --panel-color: var(--sw84-fg) !important;
+  background-color: var(--sw84-bg-deep) !important;
+  color: var(--sw84-fg) !important;
+  border: 1px solid var(--sw84-purple) !important;
+}
+
+menuitem:hover,
+menu:hover,
+menuitem[_moz-menuactive],
+menu[_moz-menuactive] {
+  background-color: var(--sw84-midpurple) !important;
+  color: var(--sw84-fg) !important;
+}
+
+menuseparator {
+  border-color: var(--sw84-midpurple) !important;
+}
+
+/* context-menu keyboard accelerators / subtext */
+.menu-accel,
+.menu-iconic-accel {
+  color: var(--sw84-fg-dim) !important;
+}
+
+/* ── Sidebar (bookmarks/history) ───────────────────────── */
+#sidebar-box,
+#sidebar-header {
+  background-color: var(--sw84-bg-deep) !important;
+  color: var(--sw84-fg) !important;
+  border-color: var(--sw84-midpurple) !important;
+}
+
+/* ── Findbar ───────────────────────────────────────────── */
+findbar {
+  background-color: var(--sw84-bg-deep) !important;
+  color: var(--sw84-fg) !important;
+  border-top: 1px solid var(--sw84-magenta) !important;
+}
+
+findbar .findbar-textbox {
+  background-color: var(--sw84-bg) !important;
+  color: var(--sw84-fg) !important;
+  border: 1px solid var(--sw84-midpurple) !important;
+  caret-color: var(--sw84-yellow) !important;
+}
+
+findbar .findbar-textbox[status="notfound"] {
+  border-color: var(--sw84-red) !important;
+  color: var(--sw84-red) !important;
+}
+
+/* ── Scrollbars (chrome areas) ─────────────────────────── */
+scrollbar {
+  background-color: var(--sw84-bg-deep) !important;
+}
+
+scrollbar thumb {
+  background-color: var(--sw84-midpurple) !important;
+  border-radius: 6px !important;
+}
+
+scrollbar thumb:hover {
+  background-color: var(--sw84-purple) !important;
+}
+
+/* ── Tooltips ──────────────────────────────────────────── */
+tooltip {
+  background-color: var(--sw84-bg-deep) !important;
+  color: var(--sw84-fg) !important;
+  border: 1px solid var(--sw84-purple) !important;
+}
+
+/* ── Notification popups (geolocation, permissions) ───── */
+.notification-popup,
+.popup-notification-body {
+  background-color: var(--sw84-bg-deep) !important;
+  color: var(--sw84-fg) !important;
+}
+
+.popup-notification-primary-button {
+  background-color: var(--sw84-purple) !important;
+  color: #FFFFFF !important;
+}
+
+/* ── Reader-mode toggle / PiP etc. keep accent ─────────── */
+#reader-mode-button[readeractive] .toolbarbutton-icon {
+  fill: var(--sw84-green) !important;
+}
+
+/* ── Private browsing indicator — red templar cross tone ─ */
+#main-window[privatebrowsingmode] #navigator-toolbox {
+  border-bottom-color: var(--sw84-red) !important;
+}
