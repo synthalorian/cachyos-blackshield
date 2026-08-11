@@ -1,0 +1,3 @@
+ESP_PATH="/boot"
+KERNEL_CMDLINE[default]+="quiet nowatchdog splash rw pcie_aspm=off drm.edid_firmware=HDMI-A-1:edid/skg-2560x1080.bin rootflags=subvol=/@ root=UUID=41f589da-59f4-4051-aad5-f1265e207a31"
+BOOT_ORDER="*, *lts, *fallback, Snapshots"

@@ -18,9 +18,27 @@ Class-level playbook for decking out Linux terminals on synth's system (CachyOS/
 ## Fonts
 
 - Install user fonts to `~/.local/share/fonts/<family>/`, then `fc-cache -f ~/.local/share/fonts`. NO sudo needed — never reach for pacman just for fonts.
+- **System default font is 3270 Nerd Font.** synth tried Orbitron as the default on 2026-08-11 and HATED it (especially in Ghostty) — fully reverted the same day. Do not re-suggest Orbitron or proportional/display fonts for terminals. Orbitron files remain at `~/.local/share/fonts/Orbitron/` + Symbols NF at `~/.local/share/fonts/NerdFontsSymbols/` (both unreferenced by any config; fontconfig conf was removed).
+- **Lesson: `plasmashell --replace` from an agent terminal can SIGABRT and silently not replace the shell** (running instance keeps its old start time). Restart Plasma via `systemctl --user restart plasma-plasmashell.service` and verify with `ps -o lstart= -p $(pgrep -x plasmashell)`.
 - **synth keeps curated font files locally** — e.g. `~/Documents/3270/` holds the full 3270 Nerd Font family (9 faces). CHECK ~/Documents (and ~/Downloads) for local font assets BEFORE installing from pacman/AUR. He prefers his local copies.
+- **Full system-wide font swaps touch more stores than obvious** — kdeglobals has font keys in BOTH `[General]` (incl. a legacy `activeFont` straggler) AND `[WM]`, plus GTK3/4, xsettingsd, Trolltech.conf, and dconf via gsettings. Complete checklist + Qt font-string format + verification pitfalls: `references/system-wide-font-swap-checklist.md`.
 - After install, verify exact family names with `fc-list | grep -i <name>`. Patched Nerd Font families expose variants like `3270 Nerd Font Mono`, `... Propo`, `... Cond` — the base family + style `Regular` resolves to the standard face.
-- Alacritty font block: `[font.normal] family = "3270 Nerd Font", style = "Regular"`.
+- Alacritty font block: `[font.normal] family = "3270 Nerd Font Mono", style = "Regular"`.
+
+## 3270 Nerd Font width-metadata bug (fixed 2026-08-11)
+
+Every face in the patched 3270 family — including Condensed and SemiCondensed — reports `width=100` (Normal) in its metadata (verify: `fc-query --format '%{width}' file.ttf`). With widths tied, fontconfig breaks the tie alphabetically and resolves ANY bare "3270 Nerd Font*" request to the **Condensed** face. Symptom: every terminal (Ghostty, kitty, Alacritty) renders squished condensed glyphs despite configs naming the right family; `fc-match '3270 Nerd Font'` returns `3270NerdFont-Condensed.ttf`. Fix deployed: all Cond/SemiCond faces exiled from BOTH `~/.local/share/fonts/3270/` and `/usr/local/share/fonts/3270/` to `~/Documents/3270/unused-widths/` (delete the /usr/local duplicates too — they re-corrupt resolution), `fc-cache -f`, then all terminal configs use **`3270 Nerd Font Mono`** (proper 2-cell nerd glyphs, matches kdeglobals `fixed`). If 3270 ever looks wrong again, first check `fc-match '3270 Nerd Font Mono'` returns the Regular file.
+
+## Ghostty font debugging (the empirical route)
+
+- Ghostty logs the RESOLVED face on startup: launch `ghostty` from a shell and read stderr for `info(font_shared_grid_set): font regular: <face>` — this is ground truth; `+show-config` only proves the config PARSED, and `fc-match` only proves what fontconfig would do, not what Ghostty picked.
+- Fallback behavior: if family resolution fails, Ghostty silently renders its bundled **JetBrainsMono Nerd Font** — fastfetch's `TERMFONT` line exposes it instantly (it queries the live terminal).
+- Quote digit-leading families in config.ghostty: `font-family = "3270 Nerd Font Mono"`.
+- fastfetch TERMFONT probe only works in an interactive window — `ghostty -e sh -c 'fastfetch > file'` breaks detection (tree-walk lands on the launcher, e.g. `timeout`/`hermes_cli.main`).
+- Ghostty windows join the running single instance via D-Bus — config edits need a FULL process kill (`pkill -x ghostty`), not just closing windows.
+- Agent-side screenshot verification is unavailable on this box: portal Screenshot is disabled (see memory), computer_use capture returns 0x0 on Wayland. Use the Ghostty log line instead.
+- **fastfetch TERMFONT lies for Ghostty on this box:** fastfetch 2.67 detects Ghostty's font by parsing `~/.config/ghostty/config` ONLY (proven via `strings /usr/bin/fastfetch | grep ghostty` → `ghostty/config`), while the Arch build reads `config.ghostty`. With no `config` file, fastfetch silently reports the bundled default (**JetBrainsMono Nerd Font 12pt**) even when Ghostty is actually rendering the configured font. Fix: `ln -s config.ghostty ~/.config/ghostty/config` (deployed 2026-08-11). Trust Ghostty's stderr `font_shared_grid_set` line over fastfetch, always.
+- fastfetch's termfont module also refuses to run without a real tty — cannot be verified headlessly (env spoofing insufficient); only in an interactive Ghostty window.
 
 ## Fastfetch
 
@@ -135,12 +153,12 @@ If the user says Ghostty/KDE “doesn’t look quite like kitty,” align everyt
    - `accentColor=#8F00FF`, `SelectionBackground=#8F00FF`, `SelectionForeground=#240037`
 4. Local scheme file `~/.local/share/color-schemes/SweetAmbarBlue.colors`: set `BackgroundNormal` to RGB `36,0,55` / `#240037`. Keep `Colors:Selection BackgroundNormal=143,0,255` / `#8F00FF`.
 5. Refresh: `qdbus org.kde.ScreenScanner /Scanner org.kde.ScreenScanner.refresh`
-6. If visuals still lag, run `plasmashell --replace`; full logout/login is the last resort.
+6. To restart the shell from an agent terminal, use `systemctl --user restart plasma-plasmashell.service`. Do NOT use `plasmashell --replace` from a non-session shell — observed SIGABRT (exit -6) mid-handshake where the old PID kept running and NOTHING was replaced. Always verify the restart actually happened: `ps -o lstart= -p $(pgrep -x plasmashell)` and compare the start time against your config edits — `pgrep` alone proves nothing. Full logout/login is the last resort.
 
 ## Ghostty
 
 - Config path: `~/.config/ghostty/config.ghostty`. File must be named `config.ghostty`; Ghostty 1.3+ ignores `config`.
-- Verified synthwave mapping against Alacritty/Kitty: `font-family = 3270 Nerd Font`, `font-size = 12`, `window-padding-x/y = 12`, `background-opacity = 0.92`, `window-decoration = false`, `confirm-close-surface = false`, `scrollback-limit = 10000`, `mouse-scroll-multiplier = 3`, `cursor-color = #F3E70F`, `cursor-text = #0D0221`, `cursor-style = block`, `cursor-style-blink = true`, `selection-background = #8F00FF`, `selection-foreground = #0D0221`, `background = #0D0221`, `foreground = #FF7EDB`.
+- Verified synthwave mapping against Alacritty/Kitty: `font-family = "3270 Nerd Font Mono"` (quoted — digit-leading family), `font-size = 11` (user-confirmed 2026-08-11; 12pt looked chunky with the Regular-width face vs the Condensed he'd been on), `window-padding-x/y = 12`, `background-opacity = 0.92`, `window-decoration = false`, `confirm-close-surface = false`, `scrollback-limit = 10000`, `mouse-scroll-multiplier = 3`, `cursor-color = #F3E70F`, `cursor-text = #0D0221`, `cursor-style = block`, `cursor-style-blink = true`, `selection-background = #8F00FF`, `selection-foreground = #0D0221`, `background = #0D0221`, `foreground = #FF7EDB`.
 - Synthwave '84 baseline is anchored to deep purple `#240037`. If `background` drifts to `#0D0221`, it breaks palette unity with Kitty/OpenShark/KDE. Re-sync with `references/synthwave84-deep-purple-drift.md`.
 - Default keybinds already cover `ctrl+==increase_font_size:1`, `ctrl+-=decrease_font_size:1`, `ctrl+0=reset_font_size`. If custom binds are added, omit spaces around `=` in `keybind = ...` lines or they validate as `InvalidFormat`.
 - Validation: `ghostty +validate-config`. Unrecognized keys are ignored at runtime, but `+validate-config` reports them. `ghostty +show-config --default --docs` is the authoritative key reference; `src/config/Config.zig` is the source of truth for typos/renames.
@@ -161,3 +179,4 @@ When changing Alacritty background color, update every background-referencing co
 ## Scripts
 
 - `scripts/fastfetch-layout-check.py` — runs fastfetch headless, strips ANSI, prints per-row art/text columns + min gap + longest line; exits 1 if the logo moat is below threshold. Run after any logo or padding change.
+- `scripts/font-specimen.py` — renders a specimen PNG (title/pangram/bold/nerd-glyph row + resolved file paths) from the ACTUAL installed fonts via fc-match. Use for visual proof after font installs/swaps when desktop screenshots aren't reachable (Wayland). `--family`, `--symbols-family`, `--out` args.

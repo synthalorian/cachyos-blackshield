@@ -36,3 +36,20 @@ Storm onset correlated with heavy bus traffic (multi-GB GGUF downloads + 12GB mo
 ## Post-fix state
 
 Ethernet-only machine (Intel I219-V, e1000e — unaffected). Load average drains over ~15 min; that lag is expected and not evidence of failure.
+
+## Epilogue (2026-08-05): card confirmed DEAD, not config-sick
+
+Resurrection attempt (BIOS re-enable + unblacklist + `pcie_aspm=off` + `rtw88_pci disable_aspm=y` + forced D0 + reset/unbind/rebind + PSU-drain cold boot) all failed at **"failed to power on mac"** / "failed to download firmware" (probe errors -114/-16), with intermittent non-enumeration and fatal AER on rescan. The July storm was the first hardware-death symptom, not a config issue. Notably `pcie_aspm=off` kept bus AER counters at ZERO even with the dying card present — correct storm prophylaxis.
+
+Final state: card triple-buried (driver blacklist + udev bus-remove rule + pcie_aspm=off on limine active entries). Bonus lesson: the I219-V ethernet was ALSO dying (link partner advertising only 10baseT → 10Mb/s) — check `ethtool` "Link partner advertised link modes" when speeds crater. Machine runs on Pixel USB tethering (RNDIS shows as `enp0s20f0uXXiY` ethernet, zero config needed) until a USB/PCIe NIC is affordable.
+
+## Second epilogue (2026-08-11): card REVIVED, storm prevention stack deployed
+
+Six days after being declared dead, the card enumerated and associated cleanly (user removed blacklist + udev rule; BIOS toggle uncertain). Revived-after-death = classic marginal-contact behavior; expect it to flap again someday — reseat + clean M.2 contacts at next case-open.
+
+Prevention stack (target the trigger — power-state transitions on a marginal link):
+1. `rtw88_pci disable_aspm=y` (modprobe.d) — link ASPM Disabled both ends ✓
+2. L1 PM Substates negotiated off ✓ (verify: `lspci -vv -s 04:00.0 | grep L1SubCtl1` — all minus)
+3. 802.11 power save OFF: `/etc/NetworkManager/conf.d/99-wifi-powersave-off.conf` (`[connection] wifi.powersave = 2`) + live `iw dev wlan0 set power_save off`
+4. `pcie_aspm=off` global — epilogue-proven ("kept bus AER counters at ZERO even with the dying card present"). **Persistent path: add to `KERNEL_CMDLINE[default]` in `/etc/default/limine`** so limine-entry-tool regeneration on kernel updates keeps it — hand-edits to /boot/limine.conf get dropped (same pitfall as the EDID override).
+5. Diagnostic gotcha: `lspci -t` FIRST when AER appears — this boot's trickle (17/hr) was root port 00:1c.6 = ASMedia ASM2142 USB 3.1 controller (chatty chip, harmless noise), NOT the WiFi under 00:1c.2. Speed mismatch between root port LnkSta and suspected device is the tell that you're looking at the wrong device.

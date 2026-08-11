@@ -17,22 +17,22 @@ history = 10000
 multiplier = 3
 
 [font]
-size = 12.0
+size = 11.0
 
 [font.normal]
-family = "3270 Nerd Font"
+family = "3270 Nerd Font Mono"
 style = "Regular"
 
 [font.bold]
-family = "3270 Nerd Font"
+family = "3270 Nerd Font Mono"
 style = "Regular"
 
 [font.italic]
-family = "3270 Nerd Font"
+family = "3270 Nerd Font Mono"
 style = "Regular"
 
 [font.bold_italic]
-family = "3270 Nerd Font"
+family = "3270 Nerd Font Mono"
 style = "Regular"
 
 [colors.primary]

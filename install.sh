@@ -49,10 +49,14 @@ phase_configs() {
 
   # shell / terminal / fetch
   mkdir -p "$HOME_DIR/.config/fish" "$HOME_DIR/.config/alacritty" \
-           "$HOME_DIR/.config/kitty" "$HOME_DIR/.config/fastfetch"
+           "$HOME_DIR/.config/kitty" "$HOME_DIR/.config/fastfetch" \
+           "$HOME_DIR/.config/ghostty"
   cp -r "$REPO_DIR/configs/fish/"*      "$HOME_DIR/.config/fish/"
   cp -r "$REPO_DIR/configs/alacritty/"* "$HOME_DIR/.config/alacritty/" 2>/dev/null || true
   cp -r "$REPO_DIR/configs/kitty/"*     "$HOME_DIR/.config/kitty/" 2>/dev/null || true
+  cp -r "$REPO_DIR/configs/ghostty/"*   "$HOME_DIR/.config/ghostty/" 2>/dev/null || true
+  # fastfetch only parses ghostty/config (upstream path); Arch ghostty reads config.ghostty
+  ln -sf config.ghostty "$HOME_DIR/.config/ghostty/config"
   cp -r "$REPO_DIR/configs/fastfetch/"* "$HOME_DIR/.config/fastfetch/"
 
   # nvim
@@ -167,6 +171,15 @@ phase_system() {
     "$REPO_DIR/wallpapers/synthwave84-lock-login/synthwave84-v2-2560x1440.png" \
     /var/lib/plasmalogin/wallpapers/synthwave84-v2-2560x1440.png
   ok "plasmalogin: config + 3270 Nerd Font greeter + synthwave84 v2 login wallpaper"
+
+  # Limine persistent kernel cmdline (pcie_aspm=off AER prophylaxis + EDID
+  # override) — survives limine-entry-tool regeneration on kernel updates
+  sudo cp "$REPO_DIR/configs/limine/default-limine" /etc/default/limine
+
+  # Kill 802.11 power save system-wide (rtw88 AER storm trigger)
+  sudo mkdir -p /etc/NetworkManager/conf.d
+  sudo cp "$REPO_DIR/configs/system/99-wifi-powersave-off.conf" /etc/NetworkManager/conf.d/99-wifi-powersave-off.conf
+  ok "limine default cmdline + wifi powersave-off deployed"
 }
 
 # ─────────────────────────────────────────────────────────────────
