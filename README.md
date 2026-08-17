@@ -6,7 +6,7 @@
 
 **Fresh CachyOS install → the full synthclaw grid, one script.**
 
-Made by synthalorian 🎹🤺 with synthclaw.
+Made by synth with synthclaw.
 
 Captures everything: KDE Plasma desktop, terminals, fish shell, neovim
 (synthwave '84, lazy.nvim), the entire 111-repo ~/Projects library, Hermes
@@ -62,7 +62,7 @@ configs/          fish, alacritty, kitty, fastfetch, nvim, kde, git,
                   llama-swap, hermes (SOUL/memories/scripts/cron), opencode, systemd,
                   icons (Synthwave cursor, candy-icons), fonts (3270 Nerd Font),
                   plasmoids (AndromedaLauncher, KdeControlStation)
-wallpapers/       ~/Pictures/synthwave + synthalorian 🎹🤺.png (Testarossa/DeLorean set)
+wallpapers/       ~/Pictures/synthwave + synth.png (Testarossa/DeLorean set)
                   + synthwave84-lock-login (lock/login screen set, incl. taskbar icons)
 skills/           all 240 Hermes skills (~/.hermes/skills)
 manifest/         packages.txt (292 pacman-explicit), projects.tsv (111 repos)
