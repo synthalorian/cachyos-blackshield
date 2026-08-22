@@ -2,7 +2,8 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/oh-my-opencode.schema.json",
   "agents": {
     "sisyphus": {
-      "model": "kimi-for-coding/kimi-k3"
+      "model": "kimi-for-coding/kimi-k3",
+      "color": "#E5383B"
     },
     "oracle": {
       "model": "opencode/gpt-5-nano"
@@ -26,7 +27,8 @@
       "model": "opencode/gpt-5-nano"
     },
     "sisyphus-junior": {
-      "model": "opencode/gpt-5-nano"
+      "model": "opencode/gpt-5-nano",
+      "color": "#C1121F"
     }
   },
   "categories": {

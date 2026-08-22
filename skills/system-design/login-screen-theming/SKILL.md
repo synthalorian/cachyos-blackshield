@@ -90,7 +90,13 @@ Limine is its own theming layer between firmware and Linux — separate from pla
 
 ### Splash image notes
 
+- **CRITICAL: Plymouth themes are baked into the initramfs at mkinitcpio time.** Setting a theme default or editing its images does NOTHING for the next boot until you rebuild: `sudo plymouth-set-default-theme -R <theme>` (the `-R` rebuilds initramfs) or `sudo mkinitcpio -P`. Symptom of a stale bake: user sees the old distro logo at boot even though `plymouth-set-default-theme` reports the custom theme.
+- **CRITICAL (KSplash, burned 2026-08-22): deploying splash art into a theme dir does NOTHING if that theme isn't the ACTIVE one.** Check `cat ~/.config/ksplashrc` FIRST — the `[KSplash] Theme=` key names the active splash package (e.g. `Theme=archsimpleblue` = stock Arch logo). Custom LnF packages (e.g. `Sweet-Blackshield` under `~/.local/share/plasma/look-and-feel/`) double as splash themes; activate with `kwriteconfig6 --file ~/.config/ksplashrc --group KSplash --key Theme <DirName>`. Takes effect at next login, no service restart. Symptom of the stale-theme burn: perfect art deployed everywhere, user still sees the Arch splash after login.
 - Limine draws the wallpaper first, then a terminal-text overlay on top.
 - Setting only font color does nothing if `term_background` is malformed — fix background before foreground.
 - If the image itself looks corrupted: regenerate or verify the PNG is valid (`file <png>`); Limine requires a real PNG, not a JPEG renamed.
 - Handoff script copies two splash files: `limine-splash-synthwave.png` → `limine-splash.png` fallback. Keep both in sync if you update the image.
+
+## Blackshield art replacement (full boot chain)
+
+When swapping the blackshield shield art, the file lives in **16 places** across repo + live system (Limine /boot ×2, Plymouth theme, KSplash ×3, greeter, lock screen, Pictures dir, repo ×4). See `references/blackshield-deployment-map.md` for the complete path table, the pre-deploy discovery sweep (kscreenlockerrc / lock_background.image / plasmalogin.conf / limine.conf all hold independent path references), and the md5sum verification step. Two repeat offenders: `~/Pictures/blackshield-lock-login/` is what kscreenlockerrc actually reads (missed in the original deployment), and Plymouth needs `sudo plymouth-set-default-theme -R blackshield` after any asset swap or the old art stays baked in the initramfs.

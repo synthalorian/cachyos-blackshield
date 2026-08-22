@@ -1,0 +1,23 @@
+# Mask AER correctable-error reporting on a PCIe root port — PERSISTENCE TEMPLATE
+# Copy to /etc/systemd/system/aer-mask-<device>.service, adjust the slot + mask value,
+# then: systemctl daemon-reload && systemctl enable --now <unit>
+# ALWAYS keep an incident header like the one below (device, incident, date, undo).
+#
+# <Device> (<slot>) RxErr AER storm prophylaxis — <incident> (<date>)
+# Mask cor-error reporting bit N so bursts stop interrupting the CPU.
+# Only error REPORTING is masked; the device keeps functioning.
+# Undo: systemctl disable --now <unit>
+
+[Unit]
+Description=Mask AER RxErr reporting on root port <SLOT>
+After=multi-user.target
+
+[Service]
+Type=oneshot
+# Read current value first:  setpci -s <SLOT> ECAP_AER+0x14.l
+# OR in the storming bits (bit 0 = RxErr) preserving existing bits:
+ExecStart=/usr/bin/setpci -s <SLOT> ECAP_AER+0x14.l=<MASKED_VALUE>
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

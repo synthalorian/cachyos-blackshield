@@ -1,0 +1,20 @@
+{
+    "KPackageStructure": "Plasma/LookAndFeel",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "synth"
+            }
+        ],
+        "Category": "Plasma Look And Feel",
+        "EnabledByDefault": true,
+        "Id": "Sweet-Blackshield",
+        "License": "GPL 3+",
+        "Name": "Sweet Blackshield",
+        "ServiceTypes": [
+            "Plasma/LookAndFeel"
+        ],
+        "Version": "1.0",
+        "Description": "Blackshield Mercenary — dark steel, blood-red cross potent."
+    }
+}

@@ -66,8 +66,10 @@ kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
 Restart Plasma to load the panel icon:
 
 ```bash
-plasmashell --replace
+systemctl --user restart plasma-plasmashell.service
 ```
+
+**Do NOT use `plasmashell --replace` here (confirmed 2026-08-22):** from the agent background shell it exits cleanly while the OLD plasmashell keeps running (PID start time unchanged) — the icon change stays invisible and looks like a bad deploy. It no-oped twice in one session; only the systemctl restart actually swapped the shell. Also delete `~/.cache/icon-cache.kcache` when the icon file was overwritten in place.
 
 Verify:
 
@@ -75,5 +77,5 @@ Verify:
 kreadconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
   --group Containments --group 49 --group Applets --group 50 --group Configuration --group General \
   --key icon
-pgrep -a plasmashell
+ps -o pid,lstart,cmd -C plasmashell   # lstart MUST post-date the restart
 ```

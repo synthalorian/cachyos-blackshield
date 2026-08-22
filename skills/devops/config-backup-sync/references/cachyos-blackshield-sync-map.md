@@ -30,6 +30,9 @@ Pairwise repo↔live mapping. Byte-compare each pair; sync only semantic diffs.
 | configs/kde/kscreenlockerrc | ~/.config/kscreenlockerrc (lock screen wallpaper; added Jul 2026) |
 | configs/system/plasmalogin.conf | /etc/plasmalogin.conf (world-readable root file, plain cp works; added Jul 2026. Login wallpaper PNG lives at /var/lib/plasmalogin/wallpapers/ — repo copy is under wallpapers/synthwave84-lock-login/) |
 | configs/limine/limine.conf | /boot/limine.conf (needs sudo to read; includes drm.edid_firmware cmdline) |
+| configs/limine/default-limine | /etc/default/limine (persistent KERNEL_CMDLINE source — limine-entry-tool regenerates /boot/limine.conf from THIS on kernel updates; pcie_aspm=off + EDID live here; added Aug 2026) |
+| configs/system/99-wifi-powersave-off.conf | /etc/NetworkManager/conf.d/99-wifi-powersave-off.conf (rtw88 AER storm prophylaxis; added Aug 2026) |
+| configs/ghostty/config.ghostty | ~/.config/ghostty/config.ghostty (Arch ghostty reads this name; live `config` is a fastfetch-compat symlink → config.ghostty — do NOT track the symlink) |
 | configs/limine/edid/*.bin | /usr/lib/firmware/edid/ (EDID firmware override, SKG 2560x1080; deployed by handoff script; added Aug 2026) |
 | handoff-post-reboot.sh | ~/Projects/active/handoff-post-reboot.sh (post-reboot finisher; tracked in repo since Aug 2026) |
 | configs/kde/gtkrc | ~/.config/gtkrc (SKIP: timestamp churn) |

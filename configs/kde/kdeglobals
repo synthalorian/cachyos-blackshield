@@ -30,25 +30,17 @@ SelectionForeground=#F5F1E8
 
 [Colors:Button]
 BackgroundAlternate=26,26,32
-BackgroundNormal=21,21,27
+BackgroundNormal=22,22,28
 DecorationFocus=229,56,59
 DecorationHover=229,56,59
-ForegroundActive=201,162,39
+ForegroundActive=91,127,166
 ForegroundInactive=138,143,152
-ForegroundLink=229,56,59
+ForegroundLink=91,127,166
 ForegroundNegative=229,56,59
 ForegroundNeutral=201,162,39
 ForegroundNormal=216,211,200
 ForegroundPositive=106,153,78
-ForegroundVisited=229,56,59
-
-[Colors:Selection]
-
-[Colors:Tooltip]
-
-[Colors:View]
-
-[Colors:Window]
+ForegroundVisited=164,80,139
 
 [Colors:Complementary]
 BackgroundAlternate=26,26,32
@@ -93,47 +85,77 @@ ForegroundPositive=106,153,78
 ForegroundVisited=164,80,139
 
 [Colors:Selection]
-BackgroundNormal=#C1121F
-ForegroundNormal=#F5F1E8
+BackgroundAlternate=193,18,31
+BackgroundNormal=193,18,31
+DecorationFocus=229,56,59
+DecorationHover=229,56,59
+ForegroundActive=245,241,232
+ForegroundInactive=211,218,227
+ForegroundLink=201,162,39
+ForegroundNegative=255,107,114
+ForegroundNeutral=227,197,88
+ForegroundNormal=245,241,232
+ForegroundPositive=143,191,111
+ForegroundVisited=245,241,232
 
 [Colors:Tooltip]
-BackgroundNormal=#1C1C24
-ForegroundNormal=#D8D3C8
+BackgroundAlternate=26,26,32
+BackgroundNormal=13,13,17
+DecorationFocus=229,56,59
+DecorationHover=229,56,59
+ForegroundActive=91,127,166
+ForegroundInactive=138,143,152
+ForegroundLink=91,127,166
+ForegroundNegative=229,56,59
+ForegroundNeutral=201,162,39
+ForegroundNormal=216,211,200
+ForegroundPositive=106,153,78
+ForegroundVisited=164,80,139
 
 [Colors:View]
-BackgroundAlternate=26,26,32
-BackgroundNormal=#18181F
-ForegroundNormal=#D8D3C8
+BackgroundAlternate=20,20,25
+BackgroundNormal=13,13,17
+DecorationFocus=229,56,59
+DecorationHover=229,56,59
+ForegroundActive=91,127,166
+ForegroundInactive=138,143,152
+ForegroundLink=123,157,196
+ForegroundNegative=229,56,59
+ForegroundNeutral=201,162,39
+ForegroundNormal=216,211,200
+ForegroundPositive=106,153,78
+ForegroundVisited=164,80,139
 
 [Colors:Window]
 BackgroundAlternate=26,26,32
 BackgroundNormal=16,16,20
 DecorationFocus=229,56,59
 DecorationHover=229,56,59
-ForegroundActive=201,162,39
+ForegroundActive=91,127,166
 ForegroundInactive=138,143,152
-ForegroundLink=229,56,59
+ForegroundLink=91,127,166
 ForegroundNegative=229,56,59
 ForegroundNeutral=201,162,39
 ForegroundNormal=216,211,200
 ForegroundPositive=106,153,78
-ForegroundVisited=229,56,59
+ForegroundVisited=164,80,139
 
 [General]
-ColorSchemeHash=blackshield-mercenary-v1
+ColorScheme=Blackshield
+ColorSchemeHash=336ea4a98e009e5784a82b72980e8edc9a7276ba
 TerminalApplication=com.mitchellh.ghostty.desktop
 accentColor=#C1121F
-activeFont=EB Garamond,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+activeFont=Pirata One,12,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 background=#101014
-fixed=EB Garamond,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-font=EB Garamond,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+fixed=Xanh Mono,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+font=Pirata One,12,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 foreground=#D8D3C8
-menuFont=EB Garamond,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-smallestReadableFont=EB Garamond,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-toolBarFont=EB Garamond,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+menuFont=Pirata One,12,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+smallestReadableFont=Pirata One,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+toolBarFont=Pirata One,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 
 [Icons]
-theme=Obsidian-Red
+Theme=Obsidian-Red
 
 [KDE]
 AnimationDurationFactor=0.25
@@ -143,6 +165,14 @@ frameContrast=0.2
 widgetStyle=Breeze
 
 [KFileDialog Settings]
+Allow Expansion=false
+Automatically select filename extension=true
+Breadcrumb Navigation=false
+Decoration position=2
+Show Full Path=false
+Show Inline Previews=true
+Show Preview=false
+Show Speedbar=true
 Show hidden files=false
 Sort by=Name
 Sort directories first=true
@@ -151,15 +181,18 @@ Sort reversed=false
 Speedbar Width=140
 View Style=DetailTree
 
+[Mouse]
+cursorTheme=Blackshield
+
 [WM]
 activeBackground=16,16,20
 activeBlend=16,16,20
-activeFont=EB Garamond,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+activeFont=Pirata One,12,-1,5,700,0,0,0,0,0,0,0,0,0,0,1
 activeForeground=216,211,200
 inactiveBackground=13,13,17
 inactiveBlend=13,13,17
-inactiveFont=EB Garamond,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+inactiveFont=Pirata One,12,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 inactiveForeground=138,143,152
 
 [general]
-cursor=Blackshield
+cursor=phinger-cursors-dark

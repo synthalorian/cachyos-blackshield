@@ -1,0 +1,111 @@
+name: Build & Release
+
+# Tag-triggered Tauri release pipeline (tauri-apps/tauri-action@v0).
+# Known-good as of 2026-08-17 (AlbionOnline-Translator v0.2.0 — 5 CI runs of fixes baked in).
+# Prereqs: TAURI_SIGNING_PRIVATE_KEY repo secret set, pubkey in tauri.conf.json
+#          plugins.updater.pubkey, and "createUpdaterArtifacts": true in bundle config.
+# Trigger: git tag vX.Y.Z && git push origin vX.Y.Z  (lightweight tags need the explicit push)
+
+on:
+  push:
+    tags:
+      - "v*"
+
+# REQUIRED — default GITHUB_TOKEN is read-only on many repos; without this,
+# release creation fails: "Resource not accessible by integration"
+permissions:
+  contents: write
+
+jobs:
+  # REQUIRED — pre-create the draft so every matrix job finds ONE release to
+  # upload into. Without this, concurrent jobs race and EACH creates its own
+  # draft with the same tag; gh release view then shows only one of them.
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create draft release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release create "${{ github.ref_name }}" --draft --title "<App Name> ${{ github.ref_name }}" --notes "See the assets below for your platform."
+
+  build:
+    needs: create-release
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-22.04
+            target: x86_64-unknown-linux-gnu
+            args: --bundles deb,rpm,appimage
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            args: --bundles nsis
+            # Only needed when a C dependency builds with static CRT
+            # (e.g. ct2rs/CTranslate2) — fixes LNK2038 RuntimeLibrary mismatch.
+            # Drop this line otherwise.
+            rustflags: -Ctarget-feature=+crt-static
+          # Apple Silicon only. Intel (x86_64-apple-darwin) breaks when a C dep
+          # injects -mavx512* flags (CTranslate2) — Apple clang rejects them.
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            # "app" is REQUIRED for updater artifacts (.app.tar.gz + .sig) —
+            # dmg alone is not an "updater-enabled" target, and the "updater"
+            # pseudo-target by itself produces nothing on macOS.
+            args: --bundles app,dmg
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Install Linux dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          # libpcap-dev only for pcap apps; patchelf required for AppImage.
+          sudo apt-get install -y libpcap-dev libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+
+      # Only needed when the app links the pcap crate — otherwise delete.
+      # Symptom without it: LNK1181: cannot open input file 'wpcap.lib'
+      - name: Install Npcap SDK (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          Invoke-WebRequest -Uri "https://npcap.com/dist/npcap-sdk-1.13.zip" -OutFile "npcap-sdk.zip"
+          Expand-Archive npcap-sdk.zip -DestinationPath C:\npcap-sdk
+          "LIB=C:\npcap-sdk\Lib\x64;$env:LIB" | Out-File -FilePath $env:GITHUB_ENV -Append
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Build Tauri app
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ""
+          RUSTFLAGS: ${{ matrix.rustflags }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: "<App Name> ${{ github.ref_name }}"
+          releaseBody: "See the assets below for your platform."
+          releaseDraft: true
+          prerelease: false
+          # --target is REQUIRED — dtolnay installing the target is not enough.
+          # Without it, a cross-arch job (e.g. x86_64-apple-darwin on an ARM
+          # runner) silently builds for the HOST arch and overwrites the other
+          # mac job's same-named dmg.
+          args: --target ${{ matrix.target }} ${{ matrix.args }}

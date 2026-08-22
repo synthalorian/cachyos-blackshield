@@ -110,6 +110,18 @@ Hyprlock uses `colors.conf` or inline variables:
 $color = rgba(R,G,B,1.0)
 ```
 
+### Related: Limine Bootloader Theming
+
+Config: repo `~/Projects/active/cachyos-blackshield/configs/limine/limine.conf` → live `/boot/limine.conf` (needs sudo; `/boot` not user-readable). Full option docs: `/usr/share/doc/limine/CONFIG.md`.
+
+- `term_background` accepts **TTRRGGBB** (TT = alpha) — translucent terminal over wallpaper, e.g. `C0240037`. The headline theming trick.
+- `term_font_scale: 2x2` for readable text on 1440p+ panels; `term_margin` + `term_margin_gradient` fade the terminal into the wallpaper.
+- Selection highlight = `term_background_bright`/`term_foreground_bright` (hot pink bg + dark text works great).
+- Countdown digit color = `interface_help_colour_bright`; branding = `interface_branding`/`_colour`.
+- **Deploy pattern:** the auto-generated entry section (everything from `comment: machine-id=` / `/+` down) is owned by limine-entry-tool/limine-snapper-sync and the LIVE file is often newer than the repo copy. Splice only the header/theme block into both files — never blanket-copy repo → /boot. Back up first: `cp /boot/limine.conf /boot/limine.conf.bak-<tag>`.
+- No `mkinitcpio` or `limine-install` needed for theme changes — limine.conf is read from the ESP at boot.
+- Wallpaper: PNG, `wallpaper: boot():/file.png`, `wallpaper_style: stretched`. Design with a dark center (menu text lands there); measure center pixel brightness with PIL before shipping.
+
 ### Related: Waybar
 
 Waybar uses CSS — check `~/.config/waybar/style.css` for `.waybar` background properties.

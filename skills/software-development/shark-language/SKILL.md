@@ -1,6 +1,6 @@
 ---
 name: shark-language
-description: OpenShark — AI coding harness that combines the best of Hermes, OpenShark, Claude Code, Codex, and OpenCode into a single self-improving system. Rust CLI with TUI, persistent memory, universal model routing, and tool execution.
+description: OpenShark — open-source AI coding harness in Rust. Fast TUI agent with persistent memory, universal model routing, tool execution, and self-improvement.
 ---
 
 # OpenShark 🦞
@@ -8,7 +8,7 @@ description: OpenShark — AI coding harness that combines the best of Hermes, O
 > The harness that learns. The agent that decides. The tool that doesn't argue.
 > Built by synth with synthclaw. 🎹🦞
 
-OpenShark is an open-source AI coding harness — not a programming language. It combines the best features of every harness into a single, self-improving system.
+OpenShark is an open-source AI coding harness — not a programming language. A fast terminal agent with persistent memory, universal model access, and a self-improvement loop. README tone rule (2026-08): describe what OpenShark IS and what it's good at — never frame it as "better than" or "combines the best of" other harnesses (Hermes, OpenClaw, Codex, OpenCode); synth still uses those, and the comparisons look tacky.
 
 ## Repository
 

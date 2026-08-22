@@ -25,6 +25,18 @@ Also covers Unity games whose launcher overrides resolution at every launch.
 gamemoderun gamescope -w 2560 -h 800 -W 2560 -H 1440 -S fit -f -- %command% -screen-width 2560 -screen-height 800
 ```
 
+Daily-driver 21:9 variant (2026-08, replaces EDID override; desktop stays native 1440p):
+
+```
+gamemoderun gamescope -w 2560 -h 1080 -W 2560 -H 1440 -S fit -f --force-grab-cursor -- %command% -screen-width 2560 -screen-height 1080 -force-glcore
+```
+
+`-force-glcore` (updated OpenGL Core) sits after `%command%` so it beats the launcher's
+injected `-force-vulkan` — Unity honors the last renderer flag. `--force-grab-cursor` is
+mouse-jank insurance; gamescope owning the cursor plane already makes the 1440p-desktop +
+1080-game XWayland mismatch structurally impossible. Renderer flag is also why Albion's
+dropdown whitelists 21:9 (3440x1440 native) but vetoes 32:10 mid-load.
+
 - `-w/-h` = nested res the game sees; `-W/-H` = real output; `-S fit` = letterbox; `-f` = fullscreen.
 - **`-f`, not `-b`.** Borderless (`-b`) floats as a misplaced undecorated window on KWin
   Wayland (wallpaper bleeds around the game). Fullscreen claims the output correctly.

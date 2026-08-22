@@ -38,8 +38,9 @@ Battle-tested patterns from shipping a JUCE 8 synth (Standalone+VST3+CLAP) acros
 
 - Pushing branch + tag together fires TWO runs (one per ref). Tag-only steps are skipped on the branch run — watch the TAG run for asset uploads.
 - Pattern: `gh release create "$TAG" --title "$TAG" --generate-notes || true` then `gh release upload "$TAG" dist/* --clobber` (tolerates a pre-existing release).
-- `GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}` env is required for gh CLI in steps.
-- **Re-pointing a tag:** the user denies `git push -f` on tags. Use delete + recreate: `git push origin :refs/tags/vX`, `git tag -d vX`, re-tag, plain push. Never bundle force-push with other commands — a denial blocks the whole bundle.
+- GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} env is required for gh CLI in steps.
+- Separate create-release job MUST check out the repo — if a workflow splits release creation into a dedicated job that runs gh release create, that job requires - uses: actions/checkout@v4. Without it, gh release create fails immediately with fatal: not a git repository because the runner has no .git directory. This is the most common failure mode when separating release creation from the build job. Diagnose: gh run view <id> --log-failed | grep "not a git repository". Fix: add the checkout step. Full pitfall bank (including the Windows Npcap DLL bundling path) is in references/tauri-action-pitfalls.md.
+
 
 ## Repo surfaces with no API
 

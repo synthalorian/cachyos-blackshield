@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Plasma/Splash
+Name=Blackshield Mercenary
+Comment=Blacksteel + blood-red cross potent — Caerleon after dark.
+X-KDE-PluginInfo-Author=synth
+X-KDE-PluginInfo-Email=
+X-KDE-PluginInfo-Name=blackshield-splash
+X-KDE-PluginInfo-Version=1.0
+X-KDE-PluginInfo-Category=
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=
+X-KDE-PluginInfo-EnabledByDefault=true

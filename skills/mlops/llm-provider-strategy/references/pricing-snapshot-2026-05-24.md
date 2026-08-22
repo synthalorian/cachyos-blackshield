@@ -49,6 +49,35 @@
 | Kimi K2.6 direct | Moonshot (via API) | ~$37/50M | Cheaper than Allegro if you don't need flat-rate |
 | GLM 5.1 Pro | Z-AI | $72/mo | Burns in <3 days → do not buy bundled |
 
+## User-specific burn data (synth/Carter, confidential)
+
+- **$72 GLM bundle exhausted in <3 days** → $24/day → ~$720/mo equivalent
+- **Token volume:** estimated 15–50M tokens/mo depending on workload mix
+- **Hardware constraint:** Qwen2.5/Card 3.5–35B OOM on 8GB VRAM; 12GB+ handles 4-bit
+- **Hermes context blow-up:** Hermes passes ~150K system-prompt tokens per agent call.
+  Any local model < ~70B parameters / <32K sustained context degrades to yes-man within 5 turns.
+  Local fallback is zero-fit for this user's Hermes toolchain.
+
+## Decision outcomes from sessions
+
+### 2026-05-24 session (SWEbench + cost comparison + multi-provider sweep)
+
+Primary: **DeepSeek V4 Pro direct** ($0.30/M) — SWE-bench ~79%, 1M context, 1/8× Claude quality at 1/16× cost
+Secondary: **DeepSeek V3 0324 direct** ($0.14/M) — $8/50M. SWE 75.3%. Run stuff first-tier. V4 Pro when multi-hour / big-context
+Code-call specialist: **Qwen3 Coder 480B** ($0.22/M, $19/50M) — SWE estimated 82-87%, use for dedicated code sprint calls
+Luxury (on demand): **Kimi K2.6 Allegro** ($99 plan) — 256K context, long-context synthesis
+Free Hermes fallback: **Nous Hermes 3 405B** — free via Nous credits, Hermes-native, handles large system prompts
+Free straggler: **DeepSeek V4 Flash (free tier)** — 1M ctx, lower quality
+Evicted: GLM 5.1 Pro ($72 plan) — burns in 3 days, third-tier coding
+
+**Expected monthly cost: $9-28** depending on actual workload (primary ~$4-13, luxury ~$5-15).
+Savings vs GLM 5.1 Pro equivalent burn: **~$700/month.**
+
+> The Kimi Allegro ($99 plan) is NOT the best coding deal for this user unless pre-committing to
+> 200+ hours/month of multi-K-context repo work. DeepSeek V4 Pro at $0.30/M is competitive
+> and only costs $5-15/mo for on-off / scheduled use. Evaluate heavywork only if the session
+> explicitly confirms >100K-context or >8h coding sessions as regular workload.
+
 ## SWE-bench Verified scores (June 2025 — most authoritative coding benchmark)
 
 | Model | SWE-bench Verified % | Notes |\n|---|---|---|\n| DeepSeek V4 Pro | **~79%+** | NEW — 1M context, fixed reasoning |\n| DeepSeek V3.2 | **~76.5%+** | V3 optimised, $0.20/$0.28 direct |\n| DeepSeek V3 0324 | **~75.3%** | Best value coding performer |\n| Qwen3 Coder 480B | **~82-87%** | Code specialist, high SWE despite low chatter on generic leaderboards |\n| Kimi K2.6 | ~74.2% | Long(ctx) specialist |\n| Claude Sonnet 4.5/4.6 | ~72.7% | 12× more expensive, slightly lower SWE |\n| GPT-5.1 | ~73.9% | |\n| Llama 3.1 405B (base) | ~74.9% | Pre-fine-tune |\n| GLM 5.1 | ~72.8% | SWE-bench Pro only 58.4% — real is worse at code |\n

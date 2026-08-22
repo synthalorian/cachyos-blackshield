@@ -5,7 +5,7 @@
 # Usage: sudo bash ./handoff-post-reboot.sh
 set -euo pipefail
 
-echo "🎹🦞 POST-REBOOT POLISH — BLACKSHIELD — $(date '+%Y-%m-%d %H:%M:%S %Z')"
+echo "🎹🦞 POST-REBOOT POLISH — $(date '+%Y-%m-%d %H:%M:%S %Z')"
 echo "===================================================="
 echo ""
 
@@ -53,9 +53,7 @@ if [[ -f configs/limine/limine.conf ]]; then
   echo "  $colour"
   sudo cp -f configs/limine/limine.conf /boot/limine.conf
   sudo install -m 644 -o root -g root \
-    configs/limine/limine-splash-blackshield.png /boot/limine-splash-blackshield.png
-  sudo install -m 644 -o root -g root \
-    configs/limine/limine-splash-blackshield-1440.png /boot/limine-splash-blackshield-1440.png
+    configs/limine/limine-splash-synthwave.png /boot/limine-splash-synthwave.png
   sudo install -m 644 -o root -g root \
     configs/limine/limine-splash.png /boot/limine-splash.png
   # EDID firmware override (SKG 32" 2560x1080 mode for HDMI-A-1)
@@ -73,13 +71,13 @@ echo ""
 
 # 4. Plymouth + login
 echo "[boot] plymouth + plasmalogin..."
-if [[ -d configs/plymouth/blackshield ]]; then
-  sudo cp -r configs/plymouth/blackshield /usr/share/plymouth/themes/
+if [[ -d configs/plymouth/synthwave84 ]]; then
+  sudo cp -r configs/plymouth/synthwave84 /usr/share/plymouth/themes/
 fi
 if [[ -f configs/system/plymouthd.conf ]]; then
   sudo cp -f configs/system/plymouthd.conf /etc/plymouth/plymouthd.conf
 fi
-sudo plymouth-set-default-theme blackshield >/dev/null 2>&1 || true
+sudo plymouth-set-default-theme synthwave84 >/dev/null 2>&1 || true
 if [[ -f configs/system/plasmalogin.conf ]]; then
   sudo cp -f configs/system/plasmalogin.conf /etc/plasmalogin.conf
 fi
@@ -88,10 +86,10 @@ if [[ -f configs/system/plasmalogin-greeter-kdeglobals ]]; then
   sudo install -m 644 -o plasmalogin -g plasmalogin \
     configs/system/plasmalogin-greeter-kdeglobals /var/lib/plasmalogin/.config/kdeglobals
 fi
-if [[ -f wallpapers/blackshield-lock-login/blackshield-2560x1440.png ]]; then
+if [[ -f wallpapers/synthwave84-lock-login/synthwave84-v2-2560x1440.png ]]; then
   sudo install -m 644 -o plasmalogin -g plasmalogin \
-    wallpapers/blackshield-lock-login/blackshield-2560x1440.png \
-    /var/lib/plasmalogin/wallpapers/blackshield-2560x1440.png
+    wallpapers/synthwave84-lock-login/synthwave84-v2-2560x1440.png \
+    /var/lib/plasmalogin/wallpapers/synthwave84-v2-2560x1440.png
 fi
 sudo mkinitcpio -P >/dev/null 2>&1 || true
 echo ""
@@ -128,4 +126,4 @@ cat <<'EOF'
   4. Reboot once more if Plymouth/limine still cached an old theme.
 EOF
 echo ""
-echo "🎹🦞 Handoff complete. The shield holds."
+echo "🎹🦞 Handoff complete. This is the wave."

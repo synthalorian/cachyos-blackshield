@@ -194,6 +194,14 @@ git push
 
 ## Pitfalls
 
+### 0. If the damage came from a known commit, REVERT it — don't search-replace
+
+Before writing any replace script, check git history (`gh api repos/OWNER/REPO/commits`, or org-wide `gh api "search/commits?q=user:OWNER+keyword+from+message"`). If a bulk change was pushed as identifiable commits (e.g. a botched "rebrand" commit per repo), `git revert --no-edit <sha>` per repo restores EXACT originals — no heuristic collateral on paths, product names, or wordplay ("Synth Lead" → "synthalorian Lead"). Find follow-up "fix" commits the same way and revert them too (reverse-chronological order). Shallow clones need `git fetch --depth 100 origin` before reverting. If a remote "fix" commit lands mid-operation (non-fast-forward on push), `git rebase -X ours origin/<branch>` then re-run the cleanup pass.
+
+### 0b. /tmp can be wiped mid-run — use a home-dir workspace
+
+On some systems (observed on CachyOS), /tmp contents vanished within minutes during a long clone+scan job, destroying the workspace twice. For any bulk job lasting more than a few minutes, work under `~/org-replace` (or similar), never /tmp.
+
 ### 1. GitHub code search fails for emoji and large orgs
 
 `gh search code "🦞" owner:synthalorian` often returns empty. `gh search code "synthclaw"` may be rate-limited or miss private repos. **Always clone and grep locally.**

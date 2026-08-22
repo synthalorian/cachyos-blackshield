@@ -1,0 +1,92 @@
+name: Build & Release
+
+# Working tag-triggered Tauri 2 release pipeline (tauri-apps/tauri-action@v0).
+# Verified end-to-end: signed updater artifacts, per-OS bundles, draft release.
+# Adapt: bundle args, Linux apt deps, matrix targets.
+# Requires: TAURI_SIGNING_PRIVATE_KEY repo secret (see references/tauri-action-pitfalls.md),
+#           plugins.updater.pubkey + bundle.createUpdaterArtifacts: true in tauri.conf.json.
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write  # required — else release creation 403s with "Resource not accessible by integration"
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-22.04
+            target: x86_64-unknown-linux-gnu
+            args: --bundles deb,rpm,appimage
+            rustflags: ""
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            args: --bundles nsis
+            # ct2rs/CTranslate2 links static CRT (MT); Rust MSVC defaults to dynamic (MD)
+            rustflags: -Ctarget-feature=+crt-static
+          # NOTE: x86_64-apple-darwin dropped — CTranslate2 CMake injects -mavx512* flags
+          # Apple clang rejects. Re-add only if ct2rs becomes optional / CMake is patched.
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            # 'app' is REQUIRED alongside dmg — dmg alone is NOT updater-enabled,
+            # so no app.tar.gz/.sig is produced and darwin is missing from latest.json.
+            # ('--bundles dmg,updater' also fails: "no updater-enabled targets were built")
+            args: --bundles app,dmg
+            rustflags: ""
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Install Linux dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpcap-dev libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+
+      - name: Install Npcap SDK (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          Invoke-WebRequest -Uri "https://npcap.com/dist/npcap-sdk-1.13.zip" -OutFile "npcap-sdk.zip"
+          Expand-Archive npcap-sdk.zip -DestinationPath C:\npcap-sdk
+          "LIB=C:\npcap-sdk\Lib\x64;$env:LIB" | Out-File -FilePath $env:GITHUB_ENV -Append
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Build Tauri app
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ""
+          RUSTFLAGS: ${{ matrix.rustflags }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: "Albion Online Translator ${{ github.ref_name }}"
+          releaseBody: "See the assets below for your platform."
+          releaseDraft: true
+          prerelease: false
+          # CRITICAL: --target is required — tauri-action builds for the runner
+          # host arch otherwise (macOS "x64" jobs silently produce aarch64 dmgs).
+          args: --target ${{ matrix.target }} ${{ matrix.args }}

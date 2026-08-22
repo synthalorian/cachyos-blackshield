@@ -42,3 +42,11 @@ When adding/removing repos from `~/Projects`, also update any manifest files tha
 ## User override: delete repos on request
 
 If the user asks to delete repos, push through once `gh` has the right scopes, or fall back to manual deletion if `gh` can't obtain `delete_repo`. After deletion, purge local copies and clean manifests.
+
+## `.git` substring inside repo names breaks URL matching
+
+`synthalorian.github.io` contains `.git` as a substring (`.github`). Any sanity check like `url.replace(".git","")` mangles the repo name, and naive `"/{name}" in url` substring checks misfire. Match on the trailing `/{name}.git` / `/{name}` at end-of-URL instead, or skip URL parsing and trust the directory→repo-name map from `gh repo list`.
+
+## Batch script safety rails that worked (86-repo support-link run, 2026-08)
+
+Per repo, in order: confirm origin matches the intended repo name → `git pull --ff-only` (diverged = flag for manual, never force) → skip if needle already present (idempotent re-runs) → append section → commit only the README → `git push origin "$(git rev-parse --abbrev-ref HEAD)"` → verify remote via `gh api repos/<owner>/<repo>/readme -H "Accept: application/vnd.github.raw" | grep needle`. Result: 81 pushed, 4 already-done, 3 intentional skips, 1 false failure (the `.github.io` bug above). Mid-batch user edits arrive — stay idempotent so a re-run is always safe.

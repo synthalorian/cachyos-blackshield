@@ -1,7 +1,7 @@
 # Blackshield Mercenary — Alacritty
 # Black steel, blood-red cross potent. Caerleon after dark.
 # Mirrors kitty.conf / ghostty-blackshield.ghostty.
-# Font: EB Garamond (text) + Symbols Nerd Font fallback for glyphs.
+# Font: Xanh Mono (text) + Symbols Nerd Font fallback for glyphs.
 
 [general]
 import = []
@@ -21,19 +21,19 @@ multiplier = 3
 size = 12.0
 
 [font.normal]
-family = "EB Garamond"
+family = "Xanh Mono"
 style = "Regular"
 
 [font.bold]
-family = "EB Garamond"
+family = "Xanh Mono"
 style = "Regular"
 
 [font.italic]
-family = "EB Garamond"
+family = "Xanh Mono"
 style = "Regular"
 
 [font.bold_italic]
-family = "EB Garamond"
+family = "Xanh Mono"
 style = "Regular"
 
 # Nerd Font symbols ride along via fontconfig fallback
