@@ -2,27 +2,20 @@
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
     "type": "file",
-    "source": "~/.config/fastfetch/cross.txt",
-    "color": {
-      "1": "#F3E70F",
-      "2": "#FF7EDB",
-      "3": "#FF00FF",
-      "4": "#8F00FF",
-      "5": "#03EDF9"
-    },
+    "source": "~/.config/fastfetch/blackshield-shield.txt",
     "padding": {
-      "top": 2,
-      "left": 2,
+      "top": 0,
+      "left": 0,
       "right": 6
     }
   },
   "display": {
-    "separator": " ▪ ",
+    "separator": " \u25aa ",
     "color": {
-      "keys": "#FF7EDB",
-      "title": "#F3E70F",
-      "separator": "#8F00FF",
-      "output": "#03EDF9"
+      "keys": "#C1121F",
+      "title": "#E5383B",
+      "separator": "#52525E",
+      "output": "#D8D3C8"
     },
     "brightColor": true,
     "percent": {
@@ -30,7 +23,7 @@
     },
     "bar": {
       "char": {
-        "elapsed": "▪",
+        "elapsed": "\u25aa",
         "total": "-"
       },
       "width": 15
@@ -39,131 +32,148 @@
   "modules": [
     {
       "type": "title",
-      "format": "{user-name-colored}@{host-name-colored}",
-      "color": {
-        "user": "#FF7EDB",
-        "at": "#8F00FF",
-        "host": "#F3E70F"
-      }
+      "format": "{#1;38;2;229;56;59}{user-name}{#separator}@{#1;38;2;216;211;200}{host-name}{#}"
     },
     {
       "type": "separator",
-      "string": "▪▪▪▪▪▪▪▪▪▪▪▪▪▪▪▪▪▪▪▪▪▪"
+      "string": "\u25aa\u25aa\u25aa\u25aa\u25aa\u25aa\u25aa\u25aa\u25aa\u25aa\u25aa\u25aa\u25aa\u25aa\u25aa\u25aa\u25aa\u25aa\u25aa\u25aa\u25aa\u25aa\u25aa"
     },
     {
       "type": "os",
-      "key": "  OS",
-      "keyColor": "#FF7EDB"
+      "key": "OS",
+      "keyColor": "#C1121F",
+      "keyWidth": 11
     },
     {
       "type": "host",
-      "key": "  HOST",
-      "keyColor": "#FF7EDB"
+      "key": "HOST",
+      "keyColor": "#C1121F",
+      "keyWidth": 11
     },
     {
       "type": "kernel",
-      "key": "  KERNEL",
-      "keyColor": "#FF7EDB"
+      "key": "KERNEL",
+      "keyColor": "#C1121F",
+      "keyWidth": 11
     },
     {
       "type": "uptime",
-      "key": "  UPTIME",
-      "keyColor": "#FF7EDB"
+      "key": "UPTIME",
+      "keyColor": "#C1121F",
+      "keyWidth": 11
     },
     {
       "type": "packages",
-      "key": "  PKGS",
-      "keyColor": "#FF7EDB"
+      "key": "PKGS",
+      "keyColor": "#C1121F",
+      "keyWidth": 11
     },
     {
       "type": "shell",
-      "key": "  SHELL",
-      "keyColor": "#FF7EDB"
+      "key": "SHELL",
+      "keyColor": "#C1121F",
+      "keyWidth": 11
     },
     {
       "type": "display",
-      "key": "  DISPLAY",
-      "keyColor": "#FF7EDB",
-      "compactType": "original-with-refresh-rate"
+      "key": "DISPLAY",
+      "keyColor": "#C1121F",
+      "compactType": "original-with-refresh-rate",
+      "keyWidth": 11
     },
     {
       "type": "de",
-      "key": "  DE",
-      "keyColor": "#FF7EDB"
+      "key": "DE",
+      "keyColor": "#C1121F",
+      "keyWidth": 11
     },
     {
       "type": "wm",
-      "key": "  WM",
-      "keyColor": "#FF7EDB"
+      "key": "WM",
+      "keyColor": "#C1121F",
+      "keyWidth": 11
     },
     {
       "type": "theme",
-      "key": "  THEME",
-      "keyColor": "#FF7EDB"
+      "key": "THEME",
+      "keyColor": "#C1121F",
+      "keyWidth": 11
     },
     {
       "type": "icons",
-      "key": "  ICONS",
-      "keyColor": "#FF7EDB"
+      "key": "ICONS",
+      "keyColor": "#C1121F",
+      "keyWidth": 11
     },
     {
       "type": "font",
-      "key": "  FONT",
-      "keyColor": "#FF7EDB"
+      "key": "FONT",
+      "keyColor": "#C1121F",
+      "keyWidth": 11
     },
     {
       "type": "cursor",
-      "key": "  CURSOR",
-      "keyColor": "#FF7EDB"
+      "key": "CURSOR",
+      "keyColor": "#C1121F",
+      "keyWidth": 11
     },
     {
       "type": "terminal",
-      "key": "  TERM",
-      "keyColor": "#FF7EDB"
+      "key": "TERM",
+      "keyColor": "#C1121F",
+      "keyWidth": 11
     },
     {
       "type": "terminalfont",
-      "key": "  TERMFONT",
-      "keyColor": "#FF7EDB"
+      "key": "TERMFONT",
+      "keyColor": "#C1121F",
+      "keyWidth": 11
     },
     "break",
     {
       "type": "cpu",
-      "key": "  CPU",
-      "keyColor": "#FF7EDB"
+      "key": "CPU",
+      "keyColor": "#C9A227",
+      "keyWidth": 11
     },
     {
       "type": "gpu",
-      "key": "  GPU",
-      "keyColor": "#FF7EDB"
+      "key": "GPU",
+      "keyColor": "#C9A227",
+      "keyWidth": 11
     },
     {
       "type": "memory",
-      "key": "  MEM",
-      "keyColor": "#FF7EDB"
+      "key": "MEM",
+      "keyColor": "#C9A227",
+      "keyWidth": 11
     },
     {
       "type": "swap",
-      "key": "  SWAP",
-      "keyColor": "#FF7EDB"
+      "key": "SWAP",
+      "keyColor": "#C9A227",
+      "keyWidth": 11
     },
     {
       "type": "disk",
-      "key": "  DISK",
-      "keyColor": "#FF7EDB",
-      "folders": "/"
+      "key": "DISK",
+      "keyColor": "#C9A227",
+      "folders": "/",
+      "keyWidth": 11
     },
     {
       "type": "battery",
-      "key": "  BATT",
-      "keyColor": "#FF7EDB"
+      "key": "BATT",
+      "keyColor": "#C9A227",
+      "keyWidth": 11
     },
     "break",
     {
       "type": "colors",
-      "key": "  COLORS",
-      "keyColor": "#FF7EDB",
-      "symbol": "circle"
+      "key": "COLORS",
+      "keyColor": "#C1121F",
+      "symbol": "circle",
+      "keyWidth": 11
     }
   ]
 }

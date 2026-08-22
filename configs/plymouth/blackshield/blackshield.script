@@ -1,0 +1,44 @@
+# Blackshield Mercenary Plymouth theme - black steel splash + blood-red comet-ring spinner
+
+screen_width = Window.GetWidth();
+screen_height = Window.GetHeight();
+
+bg_image = Image("background.png");
+bg_scaled = bg_image.Scale(screen_width, screen_height);
+bg_sprite = Sprite(bg_scaled);
+bg_sprite.SetPosition(0, 0, -100);
+
+NUM_DOTS = 12;
+RADIUS = 70;
+TWO_PI = 2 * 3.14159265;
+center_x = screen_width / 2;
+center_y = screen_height * 0.80;
+
+dot_image = Image("dot.png");
+global.dots = [];
+for (i = 0; i < NUM_DOTS; i++) {
+    global.dots[i] = Sprite(dot_image);
+}
+
+global.t = 0;
+
+fun refresh_callback() {
+    global.t += 0.09;
+    for (i = 0; i < NUM_DOTS; i++) {
+        theta = i * (TWO_PI / NUM_DOTS);
+        x = center_x + RADIUS * Math.cos(theta) - 16;
+        y = center_y + RADIUS * Math.sin(theta) - 16;
+        global.dots[i].SetPosition(x, y, 10);
+
+        phase = Math.cos(theta - global.t);
+        fade = 0.5 * (1 + phase);
+        global.dots[i].SetOpacity(0.12 + 0.88 * fade * fade * fade);
+    }
+}
+
+Plymouth.SetRefreshFunction(refresh_callback);
+
+fun message_callback(text) {
+    # swallow boot messages; the shield is the message
+}
+Plymouth.SetMessageFunction(message_callback);

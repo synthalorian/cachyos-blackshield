@@ -6,15 +6,15 @@ import org.kde.kcmutils as KCM
 
 Item {
 
-    readonly property color borderGradientColor1: plasmoid.configuration.glowColor == 0 ? "#FEAC5E" :
-                                                plasmoid.configuration.glowColor == 1 ? "#a5fecb" :
-                                                "#ff005d"
-    readonly property color borderGradientColor2: plasmoid.configuration.glowColor == 0 ? "#C779D0" :
-                                                plasmoid.configuration.glowColor == 1 ? "#20bdff" :
-                                                "#ff005c"
-    readonly property color borderGradientColor3: plasmoid.configuration.glowColor == 0 ? "#4BC0C8" :
-                                                plasmoid.configuration.glowColor == 1 ? "#5433ff" :
-                                                "#ff8b26"
+    readonly property color borderGradientColor1: plasmoid.configuration.glowColor == 0 ? "#E5383B" :
+                                                plasmoid.configuration.glowColor == 1 ? "#E3C558" :
+                                                "#E5383B"
+    readonly property color borderGradientColor2: plasmoid.configuration.glowColor == 0 ? "#C1121F" :
+                                                plasmoid.configuration.glowColor == 1 ? "#C9A227" :
+                                                "#A4508B"
+    readonly property color borderGradientColor3: plasmoid.configuration.glowColor == 0 ? "#700000" :
+                                                plasmoid.configuration.glowColor == 1 ? "#8A6A15" :
+                                                "#C1121F"
 
     KirigamiComponents.AvatarButton {
         id: mainFaceIcon

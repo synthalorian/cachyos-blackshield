@@ -7,8 +7,8 @@ gtk-button-images=1
 gtk-cursor-blink-time=1000
 gtk-cursor-blink=1
 gtk-cursor-theme-size=24
-gtk-cursor-theme-name="Synthwave"
+gtk-cursor-theme-name=phinger-cursors-dark
 gtk-sound-theme-name="ocean"
-gtk-icon-theme-name="candy-icons"
-gtk-font-name="3270 Nerd Font,  10"
+gtk-icon-theme-name="Papirus-Dark"
+gtk-font-name="EB Garamond,  11"
 

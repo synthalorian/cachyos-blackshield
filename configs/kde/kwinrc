@@ -1,8 +1,8 @@
 [Colors]
-ActiveBackground=#240037
-ActiveForeground=#FF7EDB
-InactiveBackground=#140535
-InactiveForeground=#B57EDB
+ActiveBackground=#101014
+ActiveForeground=#D8D3C8
+InactiveBackground=#0D0D11
+InactiveForeground=#8A8F98
 
 [Desktops]
 Id_1=c00e3ae9-9fa8-4c89-b17c-70125eed2da5

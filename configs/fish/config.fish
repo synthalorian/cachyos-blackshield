@@ -60,3 +60,6 @@ alias ve-build='cd ~/Projects/active/voidengine && make'
 alias ve-vk='cd ~/Projects/active/voidengine && make run-void3d-vk'
 alias ve-gl='cd ~/Projects/active/voidengine && make run-void3d'
 alias ve-shmup='cd ~/Projects/active/voidengine && make run'
+
+# Default browser (set by synthclaw 2026-08)
+set -gx BROWSER /usr/bin/chromium

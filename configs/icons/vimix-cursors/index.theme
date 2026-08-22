@@ -1,0 +1,9 @@
+[Icon Theme]
+Name=Vimix Cursors
+Comment=An X Cursor theme inspired by Material design and based on capitaine-cursors
+Inherits=hicolor
+
+Directories=cursors
+
+[cursors]
+Size=24

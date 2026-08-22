@@ -21,95 +21,119 @@ IntensityAmount=0
 IntensityEffect=0
 
 [Colors]
-BackgroundNormal=#240037
-ButtonBackground=#31176e
-ButtonForeground=#f0e6ff
-HighlightBackground=#B084EB
-SelectionBackground=#8F00FF
-SelectionForeground=#240037
+BackgroundNormal=#101014
+ButtonBackground=#16161C
+ButtonForeground=#D8D3C8
+HighlightBackground=#E5383B
+SelectionBackground=#C1121F
+SelectionForeground=#F5F1E8
 
 [Colors:Button]
-BackgroundAlternate=13,2,33
-BackgroundNormal=36,0,55
-DecorationFocus=143,0,255
-DecorationHover=143,0,255
-ForegroundActive=61,174,233
-ForegroundInactive=102,106,115
-ForegroundLink=41,128,185
-ForegroundNegative=237,37,78
-ForegroundNeutral=255,106,0
-ForegroundNormal=255,126,219
-ForegroundPositive=113,247,159
-ForegroundVisited=82,148,226
+BackgroundAlternate=26,26,32
+BackgroundNormal=21,21,27
+DecorationFocus=229,56,59
+DecorationHover=229,56,59
+ForegroundActive=201,162,39
+ForegroundInactive=138,143,152
+ForegroundLink=229,56,59
+ForegroundNegative=229,56,59
+ForegroundNeutral=201,162,39
+ForegroundNormal=216,211,200
+ForegroundPositive=106,153,78
+ForegroundVisited=229,56,59
 
 [Colors:Selection]
-BackgroundAlternate=29,153,243
-BackgroundNormal=143,0,255
-DecorationFocus=143,0,255
-DecorationHover=143,0,255
-ForegroundActive=254,254,254
-ForegroundInactive=211,218,227
-ForegroundLink=253,188,75
-ForegroundNegative=237,37,78
-ForegroundNeutral=255,106,0
-ForegroundNormal=254,254,254
-ForegroundPositive=113,247,159
-ForegroundVisited=189,195,199
 
 [Colors:Tooltip]
-BackgroundAlternate=13,2,33
-BackgroundNormal=36,0,55
-DecorationFocus=143,0,255
-DecorationHover=143,0,255
-ForegroundActive=61,174,233
-ForegroundInactive=102,106,115
-ForegroundLink=41,128,185
-ForegroundNegative=237,37,78
-ForegroundNeutral=255,106,0
-ForegroundNormal=255,126,219
-ForegroundPositive=113,247,159
-ForegroundVisited=82,148,226
 
 [Colors:View]
-BackgroundAlternate=20,6,42
-BackgroundNormal=36,0,55
-DecorationFocus=143,0,255
-DecorationHover=143,0,255
-ForegroundActive=61,174,233
-ForegroundInactive=102,106,115
-ForegroundLink=82,148,226
-ForegroundNegative=237,37,78
-ForegroundNeutral=255,106,0
-ForegroundNormal=255,126,219
-ForegroundPositive=113,247,159
-ForegroundVisited=124,183,255
 
 [Colors:Window]
-BackgroundAlternate=13,2,33
-BackgroundNormal=36,0,55
-DecorationFocus=143,0,255
-DecorationHover=143,0,255
-ForegroundActive=61,174,233
-ForegroundInactive=102,106,115
-ForegroundLink=41,128,185
-ForegroundNegative=237,37,78
-ForegroundNeutral=255,106,0
-ForegroundNormal=255,126,219
-ForegroundPositive=113,247,159
-ForegroundVisited=179,13,191
+
+[Colors:Complementary]
+BackgroundAlternate=26,26,32
+BackgroundNormal=16,16,20
+DecorationFocus=229,56,59
+DecorationHover=229,56,59
+ForegroundActive=201,162,39
+ForegroundInactive=138,143,152
+ForegroundLink=229,56,59
+ForegroundNegative=229,56,59
+ForegroundNeutral=201,162,39
+ForegroundNormal=216,211,200
+ForegroundPositive=106,153,78
+ForegroundVisited=229,56,59
+
+[Colors:Header]
+BackgroundAlternate=26,26,32
+BackgroundNormal=18,18,23
+DecorationFocus=229,56,59
+DecorationHover=229,56,59
+ForegroundActive=201,162,39
+ForegroundInactive=138,143,152
+ForegroundLink=91,127,166
+ForegroundNegative=229,56,59
+ForegroundNeutral=201,162,39
+ForegroundNormal=216,211,200
+ForegroundPositive=106,153,78
+ForegroundVisited=164,80,139
+
+[Colors:Header][Inactive]
+BackgroundAlternate=26,26,32
+BackgroundNormal=16,16,20
+DecorationFocus=229,56,59
+DecorationHover=229,56,59
+ForegroundActive=91,127,166
+ForegroundInactive=138,143,152
+ForegroundLink=91,127,166
+ForegroundNegative=229,56,59
+ForegroundNeutral=201,162,39
+ForegroundNormal=216,211,200
+ForegroundPositive=106,153,78
+ForegroundVisited=164,80,139
+
+[Colors:Selection]
+BackgroundNormal=#C1121F
+ForegroundNormal=#F5F1E8
+
+[Colors:Tooltip]
+BackgroundNormal=#1C1C24
+ForegroundNormal=#D8D3C8
+
+[Colors:View]
+BackgroundAlternate=26,26,32
+BackgroundNormal=#18181F
+ForegroundNormal=#D8D3C8
+
+[Colors:Window]
+BackgroundAlternate=26,26,32
+BackgroundNormal=16,16,20
+DecorationFocus=229,56,59
+DecorationHover=229,56,59
+ForegroundActive=201,162,39
+ForegroundInactive=138,143,152
+ForegroundLink=229,56,59
+ForegroundNegative=229,56,59
+ForegroundNeutral=201,162,39
+ForegroundNormal=216,211,200
+ForegroundPositive=106,153,78
+ForegroundVisited=229,56,59
 
 [General]
-ColorSchemeHash=83961052dd8ae9a7676bb877c18e22af36f0f110
+ColorSchemeHash=blackshield-mercenary-v1
 TerminalApplication=com.mitchellh.ghostty.desktop
-accentColor=#8F00FF
-activeFont=3270 Nerd Font,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-background=#240037
-fixed=3270 Nerd Font Mono,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-font=3270 Nerd Font,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-foreground=#FF7EDB
-menuFont=3270 Nerd Font,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-smallestReadableFont=3270 Nerd Font,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-toolBarFont=3270 Nerd Font,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+accentColor=#C1121F
+activeFont=EB Garamond,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+background=#101014
+fixed=EB Garamond,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+font=EB Garamond,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+foreground=#D8D3C8
+menuFont=EB Garamond,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+smallestReadableFont=EB Garamond,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+toolBarFont=EB Garamond,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+
+[Icons]
+theme=Papirus-Dark
 
 [KDE]
 AnimationDurationFactor=0.25
@@ -119,14 +143,6 @@ frameContrast=0.2
 widgetStyle=Breeze
 
 [KFileDialog Settings]
-Allow Expansion=false
-Automatically select filename extension=true
-Breadcrumb Navigation=true
-Decoration position=2
-Show Full Path=false
-Show Inline Previews=true
-Show Preview=false
-Show Speedbar=true
 Show hidden files=false
 Sort by=Name
 Sort directories first=true
@@ -136,11 +152,14 @@ Speedbar Width=140
 View Style=DetailTree
 
 [WM]
-activeBackground=36,0,55
-activeBlend=36,0,55
-activeFont=3270 Nerd Font,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-activeForeground=255,126,219
-inactiveBackground=36,0,55
-inactiveBlend=36,0,55
-inactiveFont=3270 Nerd Font,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-inactiveForeground=255,126,219
+activeBackground=16,16,20
+activeBlend=16,16,20
+activeFont=EB Garamond,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+activeForeground=216,211,200
+inactiveBackground=13,13,17
+inactiveBlend=13,13,17
+inactiveFont=EB Garamond,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+inactiveForeground=138,143,152
+
+[general]
+cursor=phinger-cursors-dark

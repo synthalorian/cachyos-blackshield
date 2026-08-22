@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Blackshield Mercenary
+Description=blackshield - black steel, blood-red cross potent
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/blackshield
+ScriptFile=/usr/share/plymouth/themes/blackshield/blackshield.script

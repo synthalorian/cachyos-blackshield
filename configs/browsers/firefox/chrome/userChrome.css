@@ -1,157 +1,165 @@
 /* ============================================================
-   Synthwave '84 — Firefox chrome (userChrome.css)
+   Blackshield Mercenary — Firefox chrome (userChrome.css)
    Palette canon (matches Ghostty/KDE/Limine/Plymouth):
-     bg #240037 · deep #0D0221 · fg #FF7EDB · magenta #FF00FF
-     purple #8F00FF · mid-purple #4B0080 · cyan #03EDF9
-     green #72F1B8 · yellow #F3E70F · red #FE4450
-     dim-fg #B57EDB · help #B084EB
+     bg #101014 · deep #070709 · fg #D8D3C8 · blood #C1121F
+     ember #E5383B · steel #26262E · border #52525E
+     brass #C9A227 · olive #8FBF6F · bone #F5F1E8
+     dim-fg #8A8F98
    ============================================================ */
 
 :root {
-  --sw84-bg:        #240037;
-  --sw84-bg-deep:   #0D0221;
-  --sw84-bg-inact:  #140535;
-  --sw84-fg:        #FF7EDB;
-  --sw84-fg-dim:    #B57EDB;
-  --sw84-magenta:   #FF00FF;
-  --sw84-purple:    #8F00FF;
-  --sw84-midpurple: #4B0080;
-  --sw84-cyan:      #03EDF9;
-  --sw84-green:     #72F1B8;
-  --sw84-yellow:    #F3E70F;
-  --sw84-red:       #FE4450;
+  --bs-bg:        #101014;
+  --bs-bg-deep:   #070709;
+  --bs-bg-inact:  #0D0D11;
+  --bs-fg:        #D8D3C8;
+  --bs-fg-dim:    #8A8F98;
+  --bs-blood:     #C1121F;
+  --bs-ember:     #E5383B;
+  --bs-steel:     #26262E;
+  --bs-border:    #52525E;
+  --bs-brass:     #C9A227;
+  --bs-olive:     #8FBF6F;
+  --bs-bone:      #F5F1E8;
 
   /* Firefox system vars — make native UI (menus, panels, sidebars) follow */
-  --toolbar-bgcolor: var(--sw84-bg) !important;
-  --toolbar-color: var(--sw84-fg) !important;
-  --lwt-accent-color: var(--sw84-bg) !important;
-  --lwt-text-color: var(--sw84-fg) !important;
-  --arrowpanel-background: var(--sw84-bg-deep) !important;
-  --arrowpanel-color: var(--sw84-fg) !important;
-  --arrowpanel-border-color: var(--sw84-purple) !important;
-  --panel-separator-color: var(--sw84-midpurple) !important;
-  --urlbar-box-bgcolor: var(--sw84-bg-deep) !important;
-  --urlbar-box-text-color: var(--sw84-fg) !important;
-  --urlbar-box-hover-bgcolor: var(--sw84-midpurple) !important;
-  --urlbar-box-active-bgcolor: var(--sw84-midpurple) !important;
-  --toolbarbutton-hover-background: rgba(143, 0, 255, 0.35) !important;
-  --toolbarbutton-active-background: rgba(143, 0, 255, 0.55) !important;
-  --lwt-sidebar-background-color: var(--sw84-bg-deep) !important;
-  --lwt-sidebar-text-color: var(--sw84-fg) !important;
-  --sidebar-background-color: var(--sw84-bg-deep) !important;
-  --sidebar-text-color: var(--sw84-fg) !important;
-  --tab-loading-fill: var(--sw84-cyan) !important;
-  --toolbox-text-color: var(--sw84-fg) !important;
+  --toolbar-bgcolor: var(--bs-bg) !important;
+  --toolbar-color: var(--bs-fg) !important;
+  --lwt-accent-color: var(--bs-bg) !important;
+  --lwt-text-color: var(--bs-fg) !important;
+  --arrowpanel-background: var(--bs-bg-deep) !important;
+  --arrowpanel-color: var(--bs-fg) !important;
+  --arrowpanel-border-color: var(--bs-steel) !important;
+  --panel-separator-color: var(--bs-steel) !important;
+  --urlbar-box-bgcolor: var(--bs-bg-deep) !important;
+  --urlbar-box-text-color: var(--bs-fg) !important;
+  --urlbar-box-hover-bgcolor: var(--bs-steel) !important;
+  --urlbar-box-active-bgcolor: var(--bs-steel) !important;
+  --toolbarbutton-hover-background: rgba(193, 18, 31, 0.35) !important;
+  --toolbarbutton-active-background: rgba(193, 18, 31, 0.55) !important;
+  --lwt-sidebar-background-color: var(--bs-bg-deep) !important;
+  --lwt-sidebar-text-color: var(--bs-fg) !important;
+  --sidebar-background-color: var(--bs-bg-deep) !important;
+  --sidebar-text-color: var(--bs-fg) !important;
+  --tab-loading-fill: var(--bs-brass) !important;
+  --toolbox-text-color: var(--bs-fg) !important;
 }
 
 /* ── Main window + toolbox ─────────────────────────────── */
 #main-window,
 #navigator-toolbox {
-  background-color: var(--sw84-bg) !important;
-  color: var(--sw84-fg) !important;
+  background-color: var(--bs-bg) !important;
+  color: var(--bs-fg) !important;
 }
 
 #navigator-toolbox {
-  border-bottom: 1px solid var(--sw84-midpurple) !important;
+  border-bottom: 1px solid var(--bs-steel) !important;
 }
 
 /* inactive window chrome — dim like KDE inactive borders */
 #main-window:-moz-window-inactive #navigator-toolbox {
-  background-color: var(--sw84-bg-inact) !important;
-  color: var(--sw84-fg-dim) !important;
+  background-color: var(--bs-bg-inact) !important;
+  color: var(--bs-fg-dim) !important;
 }
 
-/* ── URL bar — the neon command line ───────────────────── */
+/* ── URL bar — the war-room command line ───────────────── */
 #urlbar {
   --urlbar-height: 30px !important;
+  /* Override Firefox's default pink/unstyled outline on the container */
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+#urlbar:not(:focus-within) {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 #urlbar-background,
 #searchbar {
-  background-color: var(--sw84-bg-deep) !important;
-  color: var(--sw84-fg) !important;
-  border: 1px solid var(--sw84-midpurple) !important;
+  background-color: var(--bs-bg-deep) !important;
+  color: var(--bs-fg) !important;
+  border: 1px solid var(--bs-steel) !important;
   border-radius: 8px !important;
 }
 
 #urlbar[focused] > #urlbar-background,
 #searchbar:focus-within {
-  border-color: var(--sw84-magenta) !important;
-  box-shadow: 0 0 8px rgba(255, 0, 255, 0.45),
-              inset 0 0 4px rgba(255, 0, 255, 0.15) !important;
+  border-color: var(--bs-blood) !important;
+  box-shadow: 0 0 8px rgba(193, 18, 31, 0.45),
+              inset 0 0 4px rgba(193, 18, 31, 0.15) !important;
 }
 
 .urlbar-input,
 .searchbar-textbox {
-  color: var(--sw84-fg) !important;
-  caret-color: var(--sw84-yellow) !important;
+  color: var(--bs-fg) !important;
+  caret-color: var(--bs-bone) !important;
 }
 
 .urlbar-input::placeholder,
 .searchbar-textbox::placeholder {
-  color: var(--sw84-fg-dim) !important;
+  color: var(--bs-fg-dim) !important;
 }
 
-/* urlbar selection: purple block, dark text (Ghostty selection convention) */
+/* urlbar selection: blood block, dark text (Ghostty selection convention) */
 .urlbar-input::selection,
 .searchbar-textbox::selection {
-  background: var(--sw84-purple) !important;
-  color: var(--sw84-bg-deep) !important;
+  background: var(--bs-blood) !important;
+  color: var(--bs-bone) !important;
 }
 
 /* urlbar view dropdown */
 #urlbar-results,
 .urlbarView {
-  background-color: var(--sw84-bg-deep) !important;
-  color: var(--sw84-fg) !important;
+  background-color: var(--bs-bg-deep) !important;
+  color: var(--bs-fg) !important;
 }
 
 .urlbarView-row[selected] {
-  background-color: var(--sw84-midpurple) !important;
-  color: var(--sw84-fg) !important;
+  background-color: var(--bs-steel) !important;
+  color: var(--bs-fg) !important;
 }
 
 .urlbarView-url {
-  color: var(--sw84-cyan) !important;
+  color: var(--bs-brass) !important;
 }
 
 .urlbarView-action,
 .urlbarView-row[type="switchtab"] .urlbarView-title::after {
-  color: var(--sw84-green) !important;
+  color: var(--bs-olive) !important;
 }
 
-/* ── Tabs — powerline neon ─────────────────────────────── */
+/* ── Tabs — blacksteel chrome ──────────────────────────── */
 .tabbrowser-tab {
-  color: var(--sw84-fg-dim) !important;
+  color: var(--bs-fg-dim) !important;
 }
 
 .tabbrowser-tab .tab-background {
-  background-color: var(--sw84-bg-inact) !important;
+  background-color: var(--bs-bg-inact) !important;
   border-radius: 8px 8px 0 0 !important;
   border: 1px solid transparent !important;
   border-bottom: none !important;
 }
 
 .tabbrowser-tab:hover .tab-background {
-  background-color: var(--sw84-midpurple) !important;
-  color: var(--sw84-fg) !important;
+  background-color: var(--bs-steel) !important;
+  color: var(--bs-fg) !important;
 }
 
-/* selected tab: Ghostty tab-chrome convention — fg on pink */
+/* selected tab: Ghostty tab-chrome convention — fg on blood */
 .tabbrowser-tab[selected] .tab-background {
-  background-color: var(--sw84-fg) !important;
-  border-color: var(--sw84-magenta) !important;
+  background-color: var(--bs-blood) !important;
+  border-color: var(--bs-ember) !important;
 }
 
 .tabbrowser-tab[selected] .tab-label {
-  color: var(--sw84-bg) !important;
+  color: var(--bs-bg) !important;
   font-weight: 600 !important;
 }
 
 /* unread / attention pulses */
 .tabbrowser-tab[unread]:not([selected]) .tab-label,
 .tabbrowser-tab[attention]:not([selected]) .tab-label {
-  color: var(--sw84-cyan) !important;
+  color: var(--bs-brass) !important;
 }
 
 .tab-close-button {
@@ -160,142 +168,143 @@
 
 /* tab bar bottom accent line under selected tab */
 .tabbrowser-tab[selected] .tab-background {
-  box-shadow: 0 -2px 0 var(--sw84-magenta) inset !important;
+  box-shadow: 0 -2px 0 var(--bs-ember) inset !important;
 }
 
 #TabsToolbar {
-  background-color: var(--sw84-bg) !important;
+  background-color: var(--bs-bg) !important;
 }
 
 #new-tab-button .toolbarbutton-icon,
 .tabbrowser-tab .tab-icon-image {
-  fill: var(--sw84-fg) !important;
+  fill: var(--bs-fg) !important;
 }
 
 /* ── Bookmarks bar ─────────────────────────────────────── */
 #PersonalToolbar {
-  background-color: var(--sw84-bg) !important;
-  color: var(--sw84-fg) !important;
-  border-top: 1px solid var(--sw84-bg-inact) !important;
+  background-color: var(--bs-bg) !important;
+  color: var(--bs-fg) !important;
+  border-top: 1px solid var(--bs-bg-inact) !important;
 }
 
 #PersonalToolbar .toolbarbutton-1,
 .bookmark-item {
-  color: var(--sw84-fg) !important;
+  color: var(--bs-fg) !important;
   border-radius: 6px !important;
 }
 
 #PersonalToolbar .toolbarbutton-1:hover,
 .bookmark-item:hover {
-  background-color: var(--sw84-midpurple) !important;
+  background-color: var(--bs-steel) !important;
 }
 
 /* ── Toolbar buttons / icons ───────────────────────────── */
 toolbarbutton .toolbarbutton-icon,
 .toolbarbutton-badge-stack {
-  fill: var(--sw84-fg) !important;
+  fill: var(--bs-fg) !important;
 }
 
 #back-button .toolbarbutton-icon,
 #forward-button .toolbarbutton-icon,
 #reload-button .toolbarbutton-icon {
-  fill: var(--sw84-cyan) !important;
+  fill: var(--bs-brass) !important;
 }
 
 /* ── Menus & panels ────────────────────────────────────── */
 menupopup,
 panel {
-  --panel-background: var(--sw84-bg-deep) !important;
-  --panel-color: var(--sw84-fg) !important;
-  background-color: var(--sw84-bg-deep) !important;
-  color: var(--sw84-fg) !important;
-  border: 1px solid var(--sw84-purple) !important;
+  --panel-background: var(--bs-bg-deep) !important;
+  --panel-color: var(--bs-fg) !important;
+  background-color: var(--bs-bg-deep) !important;
+  color: var(--bs-fg) !important;
+  border: 1px solid var(--bs-steel) !important;
 }
 
 menuitem:hover,
 menu:hover,
 menuitem[_moz-menuactive],
 menu[_moz-menuactive] {
-  background-color: var(--sw84-midpurple) !important;
-  color: var(--sw84-fg) !important;
+  background-color: var(--bs-steel) !important;
+  color: var(--bs-fg) !important;
+  border: 1px solid var(--bs-steel) !important;
 }
 
 menuseparator {
-  border-color: var(--sw84-midpurple) !important;
+  border-color: var(--bs-steel) !important;
 }
 
 /* context-menu keyboard accelerators / subtext */
 .menu-accel,
 .menu-iconic-accel {
-  color: var(--sw84-fg-dim) !important;
+  color: var(--bs-fg-dim) !important;
 }
 
 /* ── Sidebar (bookmarks/history) ───────────────────────── */
 #sidebar-box,
 #sidebar-header {
-  background-color: var(--sw84-bg-deep) !important;
-  color: var(--sw84-fg) !important;
-  border-color: var(--sw84-midpurple) !important;
+  background-color: var(--bs-bg-deep) !important;
+  color: var(--bs-fg) !important;
+  border-color: var(--bs-steel) !important;
 }
 
 /* ── Findbar ───────────────────────────────────────────── */
 findbar {
-  background-color: var(--sw84-bg-deep) !important;
-  color: var(--sw84-fg) !important;
-  border-top: 1px solid var(--sw84-magenta) !important;
+  background-color: var(--bs-bg-deep) !important;
+  color: var(--bs-fg) !important;
+  border-top: 1px solid var(--bs-blood) !important;
 }
 
 findbar .findbar-textbox {
-  background-color: var(--sw84-bg) !important;
-  color: var(--sw84-fg) !important;
-  border: 1px solid var(--sw84-midpurple) !important;
-  caret-color: var(--sw84-yellow) !important;
+  background-color: var(--bs-bg) !important;
+  color: var(--bs-fg) !important;
+  border: 1px solid var(--bs-steel) !important;
+  caret-color: var(--bs-bone) !important;
 }
 
 findbar .findbar-textbox[status="notfound"] {
-  border-color: var(--sw84-red) !important;
-  color: var(--sw84-red) !important;
+  border-color: var(--bs-ember) !important;
+  color: var(--bs-ember) !important;
 }
 
 /* ── Scrollbars (chrome areas) ─────────────────────────── */
 scrollbar {
-  background-color: var(--sw84-bg-deep) !important;
+  background-color: var(--bs-bg-deep) !important;
 }
 
 scrollbar thumb {
-  background-color: var(--sw84-midpurple) !important;
+  background-color: var(--bs-steel) !important;
   border-radius: 6px !important;
 }
 
 scrollbar thumb:hover {
-  background-color: var(--sw84-purple) !important;
+  background-color: var(--bs-blood) !important;
 }
 
 /* ── Tooltips ──────────────────────────────────────────── */
 tooltip {
-  background-color: var(--sw84-bg-deep) !important;
-  color: var(--sw84-fg) !important;
-  border: 1px solid var(--sw84-purple) !important;
+  background-color: var(--bs-bg-deep) !important;
+  color: var(--bs-fg) !important;
+  border: 1px solid var(--bs-ember) !important;
 }
 
 /* ── Notification popups (geolocation, permissions) ───── */
 .notification-popup,
 .popup-notification-body {
-  background-color: var(--sw84-bg-deep) !important;
-  color: var(--sw84-fg) !important;
+  background-color: var(--bs-bg-deep) !important;
+  color: var(--bs-fg) !important;
 }
 
 .popup-notification-primary-button {
-  background-color: var(--sw84-purple) !important;
-  color: #FFFFFF !important;
+  background-color: var(--bs-blood) !important;
+  color: #F5F1E8 !important;
 }
 
 /* ── Reader-mode toggle / PiP etc. keep accent ─────────── */
 #reader-mode-button[readeractive] .toolbarbutton-icon {
-  fill: var(--sw84-green) !important;
+  fill: var(--bs-olive) !important;
 }
 
-/* ── Private browsing indicator — red templar cross tone ─ */
+/* ── Private browsing indicator — dried blood tone ─────── */
 #main-window[privatebrowsingmode] #navigator-toolbox {
-  border-bottom-color: var(--sw84-red) !important;
+  border-bottom-color: var(--bs-ember) !important;
 }

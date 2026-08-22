@@ -1,0 +1,4 @@
+[Icon Theme]
+Name=Default
+Comment=System default cursor -> Phinger Cursors (dark)
+Inherits=phinger-cursors-dark

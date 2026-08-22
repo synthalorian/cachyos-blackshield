@@ -1,99 +1,103 @@
-# Synthwave '84 — Alacritty
-# Palette: #240037 deep purple bg, #8F00FF electric purple,
-#          #FF7EDB hot pink, #FF00FF magenta, #F3E70F neon yellow
+# Blackshield Mercenary — Alacritty
+# Black steel, blood-red cross potent. Caerleon after dark.
+# Mirrors kitty.conf / ghostty-blackshield.ghostty.
+# Font: EB Garamond (text) + Symbols Nerd Font fallback for glyphs.
 
 [general]
 import = []
 
 [window]
 padding = { x = 12, y = 12 }
-opacity = 0.92
+opacity = 0.94
 decorations = "None"
 startup_mode = "Maximized"
-title = "synthwave"
+title = "blackshield"
 
 [scrolling]
 history = 10000
 multiplier = 3
 
 [font]
-size = 11.0
+size = 12.0
 
 [font.normal]
-family = "3270 Nerd Font Mono"
+family = "EB Garamond"
 style = "Regular"
 
 [font.bold]
-family = "3270 Nerd Font Mono"
+family = "EB Garamond"
 style = "Regular"
 
 [font.italic]
-family = "3270 Nerd Font Mono"
+family = "EB Garamond"
 style = "Regular"
 
 [font.bold_italic]
-family = "3270 Nerd Font Mono"
+family = "EB Garamond"
 style = "Regular"
 
+# Nerd Font symbols ride along via fontconfig fallback
+# (~/.local/share/fonts/NerdFontsSymbolsOnly + nerd-font-symbols.conf)
+
 [colors.primary]
-background = "#0D0221"
-foreground = "#FF7EDB"
-dim_foreground = "#7a5c99"
-bright_foreground = "#FFE8F9"
+background = "#101014"
+foreground = "#D8D3C8"
+dim_foreground = "#8A8F98"
+bright_foreground = "#F5F1E8"
 
 [colors.cursor]
-text = "#0D0221"
-cursor = "#F3E70F"
+text = "#101014"
+cursor = "#E5383B"
 
 [colors.vi_mode_cursor]
-text = "#0D0221"
-cursor = "#8F00FF"
+text = "#101014"
+cursor = "#C1121F"
 
 [colors.selection]
-text = "#0D0221"
-background = "#8F00FF"
+text = "#F5F1E8"
+background = "#C1121F"
 
 [colors.search.matches]
-foreground = "#0D0221"
-background = "#F3E70F"
+foreground = "#101014"
+background = "#C9A227"
 
 [colors.search.focused_match]
-foreground = "#0D0221"
-background = "#FF00FF"
+foreground = "#101014"
+background = "#E5383B"
 
 [colors.footer_bar]
-foreground = "#0D0221"
-background = "#FF7EDB"
+foreground = "#D8D3C8"
+background = "#1A1A20"
 
 [colors.normal]
-black   = "#0D0221"
-red     = "#FE4450"
-green   = "#72F1B8"
-yellow  = "#F3E70F"
-blue    = "#8F00FF"
-magenta = "#FF00FF"
-cyan    = "#03EDF9"
-white   = "#FF7EDB"
+black   = "#101014"
+red     = "#C1121F"
+green   = "#6A994E"
+yellow  = "#C9A227"
+blue    = "#5B7FA6"
+magenta = "#700000"
+cyan    = "#4E8F8B"
+white   = "#D8D3C8"
 
 [colors.bright]
-black   = "#495495"
-red     = "#FE4450"
-green   = "#72F1B8"
-yellow  = "#FEDE5D"
-blue    = "#B084EB"
-magenta = "#FF7EDB"
-cyan    = "#03EDF9"
-white   = "#FFFFFF"
+black   = "#26262E"
+red     = "#E5383B"
+green   = "#8FBF6F"
+yellow  = "#E3C558"
+blue    = "#7FA3CC"
+magenta = "#E5383B"
+cyan    = "#74B8B4"
+white   = "#F5F1E8"
 
 [colors.dim]
-black   = "#0D0221"
-red     = "#A32436"
-green   = "#3E8F6B"
-yellow  = "#8F8306"
-blue    = "#4B0080"
-magenta = "#800080"
-cyan    = "#027A82"
-white   = "#A4558F"
+black   = "#0D0D11"
+red     = "#780000"
+green   = "#4A6E37"
+yellow  = "#8F741B"
+blue    = "#3E5876"
+magenta = "#4e0a10"
+cyan    = "#376967"
+white   = "#A39E92"
 
 [keyboard]
 bindings = [

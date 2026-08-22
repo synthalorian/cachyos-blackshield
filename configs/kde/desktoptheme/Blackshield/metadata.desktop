@@ -1,0 +1,15 @@
+[Desktop Entry]
+Name=Blackshield
+Comment=A black steel and blood-red mercenary theme for Plasma 6
+X-KDE-PluginInfo-Author=synth
+X-KDE-PluginInfo-Email=synth@synthclaw.grid
+X-KDE-PluginInfo-Name=Blackshield
+X-KDE-PluginInfo-Version=1.0.0
+X-KDE-PluginInfo-Website=https://github.com/synthalorian/cachyos-synthwave84
+X-KDE-PluginInfo-Category=Plasma Theme
+X-KDE-PluginInfo-License=GPLv3
+X-KDE-PluginInfo-EnabledByDefault=true
+X-Plasma-API=5.0
+
+[AdaptiveTransparency]
+enabled=true

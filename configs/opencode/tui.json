@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/tui.json",
-  "theme": "synthwave-84",
+  "theme": "blackshield",
   "plugin": [
     "oh-my-openagent@latest"
   ]

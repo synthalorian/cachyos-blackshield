@@ -24,7 +24,7 @@
     </entry>
     <entry name="indicatorColor" type="Color">
       <label>Color of the indicator.</label>
-      <default>#2164C9</default>
+      <default>#C1121F</default>
     </entry>
     <entry name="enableGreeting" type="Bool">
       <label>Enable the greeting.</label>

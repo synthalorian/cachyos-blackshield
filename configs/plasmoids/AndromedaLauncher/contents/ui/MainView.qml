@@ -42,12 +42,12 @@ Item {
   readonly property color highlightedTextColor: Kirigami.Theme.highlightedTextColor
   readonly property bool isTop: plasmoid.location == PlasmaCore.Types.TopEdge & plasmoid.configuration.launcherPosition != 2 & !plasmoid.configuration.floating
 
-  readonly property color glowColor1: plasmoid.configuration.glowColor == 0 ? "#D300DC" :
-                                      plasmoid.configuration.glowColor == 1 ? "#20bdff" :
-                                      "#ff005d"
-  readonly property color glowColor2: plasmoid.configuration.glowColor == 0 ? "#8700FF" :
-                                      plasmoid.configuration.glowColor == 1 ? "#5433ff" :
-                                      "#ff8b26"
+  readonly property color glowColor1: plasmoid.configuration.glowColor == 0 ? "#C1121F" :
+                                      plasmoid.configuration.glowColor == 1 ? "#C9A227" :
+                                      "#E5383B"
+  readonly property color glowColor2: plasmoid.configuration.glowColor == 0 ? "#700000" :
+                                      plasmoid.configuration.glowColor == 1 ? "#8A6A15" :
+                                      "#A4508B"
 
   property bool showAllApps: false
 

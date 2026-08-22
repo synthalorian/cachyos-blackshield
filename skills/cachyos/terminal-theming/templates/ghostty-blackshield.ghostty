@@ -1,0 +1,47 @@
+# Ghostty — Blackshield Mercenary
+# Black steel, blood-red cross potent. Caerleon after dark.
+# Exact mirror of Alacritty/Kitty verified palette.
+# Font: EB Garamond (text) + Symbols Nerd Font Mono fallback for glyphs.
+
+font-family = EB Garamond
+font-family-fallback = Symbols Nerd Font Mono
+font-size = 13
+font-style-bold = true
+font-style-italic = true
+font-style-bold-italic = true
+
+window-padding-x = 12
+window-padding-y = 12
+background-opacity = 0.94
+window-decoration = false
+confirm-close-surface = false
+scrollback-limit = 10000
+mouse-scroll-multiplier = 3
+
+cursor-color = #E5383B
+cursor-text = #101014
+cursor-style = block
+cursor-style-blink = true
+
+selection-background = #C1121F
+selection-foreground = #F5F1E8
+
+background = #101014
+foreground = #D8D3C8
+
+palette = 0=#101014
+palette = 1=#C1121F
+palette = 2=#6A994E
+palette = 3=#C9A227
+palette = 4=#5B7FA6
+palette = 5=#A4508B
+palette = 6=#4E8F8B
+palette = 7=#D8D3C8
+palette = 8=#26262E
+palette = 9=#E5383B
+palette = 10=#8FBF6F
+palette = 11=#E3C558
+palette = 12=#7FA3CC
+palette = 13=#C97BB0
+palette = 14=#74B8B4
+palette = 15=#F5F1E8

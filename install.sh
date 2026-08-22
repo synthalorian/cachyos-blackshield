@@ -2,6 +2,7 @@
 # ═══════════════════════════════════════════════════════════════════
 #  cachyos-synthwave84 — synth's full-system bootstrap
 #  Fresh CachyOS install -> fully working grid in one script.
+#  Theme: BLACKSHIELD MERCENARY — black steel, blood-red cross potent.
 #  Made by synth with synthclaw 🎹🦞
 #
 #  Usage (after gh auth login):
@@ -14,14 +15,14 @@ set -euo pipefail
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 HOME_DIR="$HOME"
 
-c_purple='\033[38;2;143;0;255m'
-c_pink='\033[38;2;255;126;219m'
-c_yellow='\033[38;2;243;231;15m'
+c_blood='\033[38;2;193;18;31m'        # BLOOD     #C1121F
+c_parchment='\033[38;2;216;211;200m'  # PARCHMENT #D8D3C8
+c_brass='\033[38;2;201;162;39m'       # BRASS     #C9A227
 c_reset='\033[0m'
 
-say()  { echo -e "${c_purple}▸ ${c_reset}$1"; }
-ok()   { echo -e "${c_pink}  ✓ ${c_reset}$1"; }
-warn() { echo -e "${c_yellow}  ! ${c_reset}$1"; }
+say()  { echo -e "${c_blood}▸ ${c_reset}$1"; }
+ok()   { echo -e "${c_parchment}  ✓ ${c_reset}$1"; }
+warn() { echo -e "${c_brass}  ! ${c_reset}$1"; }
 
 # ─────────────────────────────────────────────────────────────────
 phase_packages() {
@@ -77,15 +78,15 @@ phase_configs() {
   cp -r "$REPO_DIR/configs/kde/color-schemes/"* "$HOME_DIR/.local/share/color-schemes/" 2>/dev/null || true
   cp -r "$REPO_DIR/configs/kde/desktoptheme/"*  "$HOME_DIR/.local/share/plasma/desktoptheme/" 2>/dev/null || true
 
-  # icons (incl. Synthwave cursor), fonts, plasmoids, wallpapers
+  # icons (Obsidian-Red icon theme + Vimix-cursors), fonts, plasmoids, wallpapers
   mkdir -p "$HOME_DIR/.local/share/icons" "$HOME_DIR/.local/share/fonts" \
            "$HOME_DIR/.local/share/plasma/plasmoids" "$HOME_DIR/Pictures"
   cp -r "$REPO_DIR/configs/icons/"*     "$HOME_DIR/.local/share/icons/"
   cp -r "$REPO_DIR/configs/fonts/"*     "$HOME_DIR/.local/share/fonts/"
   cp -r "$REPO_DIR/configs/plasmoids/"* "$HOME_DIR/.local/share/plasma/plasmoids/"
-  cp -r "$REPO_DIR/wallpapers/synthwave" "$HOME_DIR/Pictures/synthwave"
-  cp "$REPO_DIR/wallpapers/synth.png" "$HOME_DIR/Pictures/synth.png"
-  fc-cache -f &>/dev/null && ok "font cache rebuilt (3270 + nerd fonts)"
+  cp -r "$REPO_DIR/wallpapers/blackshield" "$HOME_DIR/Pictures/blackshield"
+  cp -r "$REPO_DIR/wallpapers/blackshield-lock-login" "$HOME_DIR/Pictures/blackshield-lock-login"
+  fc-cache -f &>/dev/null && ok "font cache rebuilt (EB Garamond + nerd fonts)"
 
   # git
   cp "$REPO_DIR/configs/git/gitconfig" "$HOME_DIR/.gitconfig"
@@ -100,7 +101,7 @@ phase_configs() {
 
 # ─────────────────────────────────────────────────────────────────
 phase_browsers() {
-  say "Phase 2a: browser themes (firefox + chromium) — synthwave '84"
+  say "Phase 2a: browser themes (firefox + chromium) — BLACKSHIELD"
 
   # ── Firefox: userChrome.css / userContent.css / user.js per profile ──
   if command -v firefox &>/dev/null; then
@@ -111,7 +112,7 @@ phase_browsers() {
     if [[ ! -f "$ff_root/installs.ini" ]]; then
       say "no firefox profile yet — seeding one headlessly"
       mkdir -p "$ff_root"
-      local seedprof="$ff_root/.seed-synthwave84"
+      local seedprof="$ff_root/.seed-blackshield"
       timeout 25 firefox --headless -profile "$seedprof" about:blank &>/dev/null || true
       rm -rf "$seedprof"
     fi
@@ -129,10 +130,10 @@ phase_browsers() {
       for prof in "${ff_profiles[@]}"; do
         mkdir -p "$prof/chrome"
         cp -r "$REPO_DIR/configs/browsers/firefox/chrome/"* "$prof/chrome/"
-        if ! grep -q "synthwave84" "$prof/user.js" 2>/dev/null; then
+        if ! grep -q "blackshield" "$prof/user.js" 2>/dev/null; then
           cat "$REPO_DIR/configs/browsers/firefox/user.js" >> "$prof/user.js"
         fi
-        ok "firefox synthwave '84 deployed -> $(basename "$prof") (restart Firefox to apply)"
+        ok "firefox BLACKSHIELD deployed -> $(basename "$prof") (restart Firefox to apply)"
       done
     fi
   else
@@ -142,11 +143,11 @@ phase_browsers() {
   # ── Chromium: unpacked theme (developer-mode load) ──
   if command -v chromium &>/dev/null || command -v chromium-browser &>/dev/null; then
     mkdir -p "$HOME_DIR/.config/chromium-themes"
-    rm -rf "$HOME_DIR/.config/chromium-themes/synthwave84"
-    cp -r "$REPO_DIR/configs/browsers/chromium/synthwave84" "$HOME_DIR/.config/chromium-themes/synthwave84"
-    ok "chromium theme staged at ~/.config/chromium-themes/synthwave84"
+    rm -rf "$HOME_DIR/.config/chromium-themes/blackshield"
+    cp -r "$REPO_DIR/configs/browsers/chromium/blackshield" "$HOME_DIR/.config/chromium-themes/blackshield"
+    ok "chromium theme staged at ~/.config/chromium-themes/blackshield"
     warn "chromium blocks CLI theme installs — one-time manual step:"
-    echo  "       chrome://extensions -> enable Developer mode -> Load unpacked -> ~/.config/chromium-themes/synthwave84"
+    echo  "       chrome://extensions -> enable Developer mode -> Load unpacked -> ~/.config/chromium-themes/blackshield"
   else
     warn "chromium not installed — skipping chromium theme"
   fi
@@ -156,21 +157,21 @@ phase_browsers() {
 phase_system() {
   say "Phase 2b: system boot/login (sudo) — plymouth + plasmalogin"
 
-  # Plymouth boot splash (synthwave84)
-  sudo cp -r "$REPO_DIR/configs/plymouth/synthwave84" /usr/share/plymouth/themes/
+  # Plymouth boot splash (blackshield)
+  sudo cp -r "$REPO_DIR/configs/plymouth/blackshield" /usr/share/plymouth/themes/
   sudo cp "$REPO_DIR/configs/system/plymouthd.conf" /etc/plymouth/plymouthd.conf
-  sudo plymouth-set-default-theme synthwave84 2>/dev/null || true
-  sudo mkinitcpio -P && ok "plymouth theme synthwave84 installed + initramfs rebuilt"
+  sudo plymouth-set-default-theme blackshield 2>/dev/null || true
+  sudo mkinitcpio -P && ok "plymouth theme blackshield installed + initramfs rebuilt"
 
-  # Plasma Login Manager: config + greeter font (3270 Nerd Font) + wallpaper
+  # Plasma Login Manager: config + greeter font (EB Garamond) + wallpaper
   sudo cp "$REPO_DIR/configs/system/plasmalogin.conf" /etc/plasmalogin.conf
   sudo install -d -m 700 -o plasmalogin -g plasmalogin /var/lib/plasmalogin/.config /var/lib/plasmalogin/wallpapers
   sudo install -m 644 -o plasmalogin -g plasmalogin \
     "$REPO_DIR/configs/system/plasmalogin-greeter-kdeglobals" /var/lib/plasmalogin/.config/kdeglobals
   sudo install -m 644 -o plasmalogin -g plasmalogin \
-    "$REPO_DIR/wallpapers/synthwave84-lock-login/synthwave84-v2-2560x1440.png" \
-    /var/lib/plasmalogin/wallpapers/synthwave84-v2-2560x1440.png
-  ok "plasmalogin: config + 3270 Nerd Font greeter + synthwave84 v2 login wallpaper"
+    "$REPO_DIR/wallpapers/blackshield-lock-login/blackshield-2560x1440.png" \
+    /var/lib/plasmalogin/wallpapers/blackshield-2560x1440.png
+  ok "plasmalogin: config + EB Garamond greeter + BLACKSHIELD login wallpaper"
 
   # Limine persistent kernel cmdline (pcie_aspm=off AER prophylaxis + EDID
   # override) — survives limine-entry-tool regeneration on kernel updates
@@ -287,15 +288,15 @@ phase_nvim() {
 # ─────────────────────────────────────────────────────────────────
 finale() {
   echo
-  echo -e "${c_pink}═══════════════════════════════════════════════════${c_reset}"
-  echo -e "${c_purple}  Grid restored. Remaining manual steps:${c_reset}"
+  echo -e "${c_parchment}═══════════════════════════════════════════════════${c_reset}"
+  echo -e "${c_blood}  Shield raised. Remaining manual steps:${c_reset}"
   echo    "  1. Fill in secrets — see docs/SECRETS.md"
   echo    "  2. Download GGUF models — see docs/MODELS.md"
   echo    "  3. gh auth login (if not done)"
   echo    "  4. Log out/in (fish shell + KDE config)"
   echo    "  5. systemctl --user start llama-swap hermes-gateway openclaw-gateway"
-  echo -e "${c_pink}  This is the wave. 🎹🦞${c_reset}"
-  echo -e "${c_pink}═══════════════════════════════════════════════════${c_reset}"
+  echo -e "${c_parchment}  The shield holds. 🎹🦞${c_reset}"
+  echo -e "${c_parchment}═══════════════════════════════════════════════════${c_reset}"
 }
 
 # ─────────────────────────────────────────────────────────────────
