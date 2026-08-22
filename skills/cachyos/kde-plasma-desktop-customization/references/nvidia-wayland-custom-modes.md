@@ -38,7 +38,7 @@ limine bootloader, SKG 2560x1440@165 monitor on HDMI-A-1.
 6. Install: `sudo mkdir -p /usr/lib/firmware/edid && sudo cp patched.bin /usr/lib/firmware/edid/<name>.bin`
 7. Cmdline: `drm.edid_firmware=HDMI-A-1:edid/<name>.bin` in limine.conf — edit
    BOTH `/boot/limine.conf` and the repo copy
-   `~/Projects/active/cachyos-synthwave84/configs/limine/limine.conf`
+   `~/Projects/active/cachyos-blackshield/configs/limine/limine.conf`
    (handoff-post-reboot.sh syncs repo→/boot; editing only /boot gets reverted).
 8. Check `/etc/mkinitcpio.conf`: `MODULES=()` empty = nvidia loads post-root so
    /usr/lib/firmware is available. If nvidia were baked into initramfs, the

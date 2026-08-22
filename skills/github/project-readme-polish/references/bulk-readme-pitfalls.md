@@ -36,7 +36,7 @@ Some repos under `~/Projects/active/` are clones or mirrors of upstream projects
 ## Manifest drift
 
 When adding/removing repos from `~/Projects`, also update any manifest files that hardcode paths, especially:
-- `cachyos-synthwave84/manifest/projects.tsv`
+- `cachyos-blackshield/manifest/projects.tsv`
 - Any install/bootstrap scripts that clone by name
 
 ## User override: delete repos on request

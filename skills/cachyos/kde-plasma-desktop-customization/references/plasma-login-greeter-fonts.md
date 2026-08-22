@@ -64,7 +64,7 @@ Font-value format copied verbatim from the user's own `~/.config/kdeglobals`
   "Apply Plasma Settings" — syncs the logged-in user's fonts/colors/wallpaper
   via the `kcm_plasmalogin` kauth helper. Manual kwriteconfig6 is more exact.
 
-## Backup-repo integration (cachyos-synthwave84)
+## Backup-repo integration (cachyos-blackshield)
 
 The greeter kdeglobals, `/etc/plasmalogin.conf`, `/etc/plymouth/plymouthd.conf`,
 and the Plymouth theme dir (`/usr/share/plymouth/themes/<theme>/`, world-readable)

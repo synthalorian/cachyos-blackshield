@@ -1,6 +1,6 @@
-# cachyos-synthwave84 Sync Map
+# cachyos-blackshield Sync Map
 
-Repo: `~/Projects/active/cachyos-synthwave84` (private, `synthalorian/cachyos-synthwave84`).
+Repo: `~/Projects/active/cachyos-blackshield` (private, `synthalorian/cachyos-blackshield`).
 Pairwise repo↔live mapping. Byte-compare each pair; sync only semantic diffs.
 
 ## Terminals & Shell
@@ -60,7 +60,7 @@ Pairwise repo↔live mapping. Byte-compare each pair; sync only semantic diffs.
 # packages (explicit installs)
 pacman -Qeq > manifest/packages.txt
 
-# projects coverage check (cachyos-synthwave84 itself legitimately absent)
+# projects coverage check (cachyos-blackshield itself legitimately absent)
 comm -13 <(cut -f2 manifest/projects.tsv | sort) \
          <(ls -d ~/Projects/*/*/ | xargs -n1 basename | sort)
 ```

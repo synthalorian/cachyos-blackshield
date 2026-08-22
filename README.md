@@ -1,4 +1,4 @@
-# cachyos-synthwave84 🎹🦞
+# cachyos-blackshield 🎹🦞
 
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
 ![CachyOS](https://img.shields.io/badge/distro-CachyOS_Arch-yellow)
@@ -19,8 +19,8 @@ OpenCode config, and systemd user services.
 
 ```bash
 sudo pacman -S --needed --noconfirm git github-cli && gh auth login \
-  && gh repo clone synthalorian/cachyos-synthwave84 \
-  && cd cachyos-synthwave84 && ./install.sh
+  && gh repo clone synthalorian/cachyos-blackshield \
+  && cd cachyos-blackshield && ./install.sh
 ```
 
 ## What install.sh does

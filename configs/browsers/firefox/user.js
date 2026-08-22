@@ -1,5 +1,5 @@
 // Synthwave '84 — Firefox prefs required for the chrome theme
-// Deployed by cachyos-synthwave84 install.sh into every Firefox profile.
+// Deployed by cachyos-blackshield install.sh into every Firefox profile.
 
 // REQUIRED: makes Firefox read chrome/userChrome.css + chrome/userContent.css
 user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);

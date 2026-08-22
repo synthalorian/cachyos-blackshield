@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # ═══════════════════════════════════════════════════════════════════
-#  cachyos-synthwave84 — synth's full-system bootstrap
+#  cachyos-blackshield — synth's full-system bootstrap
 #  Fresh CachyOS install -> fully working grid in one script.
 #  Theme: BLACKSHIELD MERCENARY — black steel, blood-red cross potent.
 #  Made by synth with synthclaw 🎹🦞
 #
 #  Usage (after gh auth login):
-#    gh repo clone synthalorian/cachyos-synthwave84 && cd cachyos-synthwave84 && ./install.sh
+#    gh repo clone synthalorian/cachyos-blackshield && cd cachyos-blackshield && ./install.sh
 #
 #  Phases can be run individually: ./install.sh packages|configs|browsers|system|projects|ai|services|nvim
 # ═══════════════════════════════════════════════════════════════════

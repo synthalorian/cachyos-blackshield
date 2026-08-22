@@ -15,7 +15,7 @@ Preferred layout for a first-class fish setup:
 ├── conflicts.fish       # env/Wayland/terminal conflict resolution
 ├── aliases.fish         # user aliases
 ├── <tool>.fish          # one function per file
-cachyos-synthwave84 repo/
+cachyos-blackshield repo/
 └── configs/fish/functions/
     ├── conflicts.fish    # canonical copy, versioned
     ├── aliases.fish
@@ -24,13 +24,13 @@ handoff-post-reboot.sh    # install -m 644 repo → ~/.config/fish/functions
 ```
 
 Rule: do NOT put function definitions in `config.fish`. Each function lives in its own file under `functions/`.
-The canonical copies are versioned in `cachyos-synthwave84`; `handoff-post-reboot.sh` redeploys them after every reboot.
+The canonical copies are versioned in `cachyos-blackshield`; `handoff-post-reboot.sh` redeploys them after every reboot.
 
 ### Versioning function files
 
 ```bash
-cp ~/.config/fish/functions/<name>.fish ~/Projects/active/cachyos-synthwave84/configs/fish/functions/
-cd ~/Projects/active/cachyos-synthwave84 && git add configs/fish/functions/<name>.fish && git commit && git push
+cp ~/.config/fish/functions/<name>.fish ~/Projects/active/cachyos-blackshield/configs/fish/functions/
+cd ~/Projects/active/cachyos-blackshield && git add configs/fish/functions/<name>.fish && git commit && git push
 ```
 
 Update the handoff loop when adding new files:

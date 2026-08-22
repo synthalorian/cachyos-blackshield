@@ -13,8 +13,8 @@ echo ""
 if [[ "${EUID:-$(id -u)}" -ne 0 ]]; then
   echo "[hint] some checks need root; re-run with: sudo bash $0"
 fi
-test -d ~/Projects/active/cachyos-synthwave84 || { echo 'missing ~/Projects/active/cachyos-synthwave84'; exit 1; }
-cd ~/Projects/active/cachyos-synthwave84
+test -d ~/Projects/active/cachyos-blackshield || { echo 'missing ~/Projects/active/cachyos-blackshield'; exit 1; }
+cd ~/Projects/active/cachyos-blackshield
 echo "[env] OK — $(pwd)"
 echo ""
 
@@ -99,7 +99,7 @@ echo ""
 # 5. Fish functions (single-file per function, no env-level pollution)
 echo "[fish] functions..."
 fish_functions_dir="$HOME/.config/fish/functions"
-src_dir="$(cd ~/Projects/active/cachyos-synthwave84/configs/fish/functions && pwd)"
+src_dir="$(cd ~/Projects/active/cachyos-blackshield/configs/fish/functions && pwd)"
 for f in conflicts aliases activate ginit this-is-the-wave ls top yt tmux-launch zoxide llama-toggle; do
   if [[ -f "$src_dir/$f.fish" ]]; then
     install -m 644 "$src_dir/$f.fish" "$fish_functions_dir/$f.fish"
