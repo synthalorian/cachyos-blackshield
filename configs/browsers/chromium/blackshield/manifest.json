@@ -9,12 +9,12 @@
       "theme_ntp_background": "ntp_background.png"
     },
     "colors": {
-      "frame": [16, 16, 20],
-      "frame_inactive": [13, 13, 17],
-      "toolbar": [16, 16, 20],
-      "tab_text": [216, 211, 200],
+      "frame": [7, 7, 9],
+      "frame_inactive": [5, 5, 7],
+      "toolbar": [193, 18, 31],
+      "tab_text": [245, 241, 232],
       "tab_background_text": [138, 143, 152],
-      "bookmark_text": [216, 211, 200],
+      "bookmark_text": [245, 241, 232],
       "ntp_background": [7, 7, 9],
       "ntp_text": [216, 211, 200],
       "ntp_link": [201, 162, 39],

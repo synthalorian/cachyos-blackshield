@@ -133,7 +133,7 @@ smallestReadableFont=EB Garamond,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 toolBarFont=EB Garamond,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 
 [Icons]
-theme=Papirus-Dark
+theme=Obsidian-Red
 
 [KDE]
 AnimationDurationFactor=0.25

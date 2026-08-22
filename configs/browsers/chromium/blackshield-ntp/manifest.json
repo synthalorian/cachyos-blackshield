@@ -1,0 +1,9 @@
+{
+    "manifest_version": 3,
+    "name": "Blackshield New Tab",
+    "version": "1.0",
+    "description": "Blackshield Mercenary new tab — the standard raised on black steel. Searches via Google.",
+    "chrome_url_overrides": {
+        "newtab": "newtab.html"
+    }
+}
