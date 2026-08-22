@@ -1,0 +1,9 @@
+[Icon Theme]
+Name=Blackshield
+Comment=Blood-red mercenary cursors (Synthwave dye job)
+Inherits=hicolor
+
+Directories=cursors
+
+[cursors]
+Size=24
