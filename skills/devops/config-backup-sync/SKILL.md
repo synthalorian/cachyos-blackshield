@@ -5,7 +5,7 @@ description: Sync a live Linux system into a versioned config backup repo (synth
 
 # Config Backup Sync
 
-Keep a config backup repo current with the live system. Synth's active repo: `cachyos-blackshield` at `~/Projects/active/cachyos-blackshield` (private, `synthalorian/cachyos-blackshield`). For repo structure, sanitization rules, and secret purging, see the `reproducible-setup` skill — this skill covers the recurring *sync* workflow.
+Keep a config backup repo current with the live system. Synth's active repo: `cachyos-blackshield` at `~/Projects/active/cachyos-blackshield` (PUBLIC since the 2026-08-22 rename — `configs/hermes/SOUL.md` and `configs/hermes/memories/` stay working-tree-only via .gitignore; NEVER commit them). For repo structure, sanitization rules, and secret purging, see the `reproducible-setup` skill — this skill covers the recurring *sync* workflow.
 
 ## Core Method: Pairwise Diff, Not mtime Scan
 

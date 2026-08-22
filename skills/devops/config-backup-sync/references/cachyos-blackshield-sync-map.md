@@ -1,6 +1,6 @@
 # cachyos-blackshield Sync Map
 
-Repo: `~/Projects/active/cachyos-blackshield` (private, `synthalorian/cachyos-blackshield`).
+Repo: `~/Projects/active/cachyos-blackshield` (PUBLIC since 2026-08-22 rename, `synthalorian/cachyos-blackshield`; SOUL.md + memories are .gitignored working-tree-only).
 Pairwise repo↔live mapping. Byte-compare each pair; sync only semantic diffs.
 
 ## Terminals & Shell
@@ -28,6 +28,9 @@ Pairwise repo↔live mapping. Byte-compare each pair; sync only semantic diffs.
 | configs/kde/kactivitymanagerdrc | ~/.config/kactivitymanagerdrc |
 | configs/kde/baloofilerc | ~/.config/baloofilerc |
 | configs/kde/kscreenlockerrc | ~/.config/kscreenlockerrc (lock screen wallpaper; added Jul 2026) |
+| configs/kde/ksplashrc | ~/.config/ksplashrc (ACTIVE KSplash theme — the 2026-08-22 archsimpleblue burn: art deployed into Sweet-Blackshield did nothing while this said archsimpleblue; added Aug 2026) |
+| configs/kde/look-and-feel/Sweet-Blackshield/ | ~/.local/share/plasma/look-and-feel/Sweet-Blackshield/ (custom KSplash LnF theme w/ Blackshield art + QML; added Aug 2026) |
+| configs/plymouth/blackshield/ | /usr/share/plymouth/themes/blackshield/ (full theme: .plymouth, .script, background.png, dot.png; theme changes need `plymouth-set-default-theme -R blackshield` to re-bake initramfs; completed Aug 2026) |
 | configs/system/plasmalogin.conf | /etc/plasmalogin.conf (world-readable root file, plain cp works; added Jul 2026. Login wallpaper PNG lives at /var/lib/plasmalogin/wallpapers/ — repo copy is under wallpapers/synthwave84-lock-login/) |
 | configs/limine/limine.conf | /boot/limine.conf (needs sudo to read; includes drm.edid_firmware cmdline) |
 | configs/limine/default-limine | /etc/default/limine (persistent KERNEL_CMDLINE source — limine-entry-tool regenerates /boot/limine.conf from THIS on kernel updates; pcie_aspm=off + EDID live here; added Aug 2026) |
