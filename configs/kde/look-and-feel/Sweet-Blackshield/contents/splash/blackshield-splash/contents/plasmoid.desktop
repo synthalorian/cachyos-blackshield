@@ -1,6 +1,0 @@
-[Desktop Entry]
-Type=Service
-ServiceTypes=Plasma/Splash
-Icon=blackshield-splash
-X-Plasma-Splash=contents/ui/splash.png
-X-KDE-ServiceTypes=Plasma/Splash

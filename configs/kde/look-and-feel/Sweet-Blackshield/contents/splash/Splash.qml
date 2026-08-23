@@ -8,16 +8,19 @@ import QtQuick
 Image {
     id: root
     source: "images/splash.png"
+    fillMode: Image.PreserveAspectCrop
 
     property int stage
 
-    onStageChanged: {
-        if (stage == 1) {
-            opacity = 0
-            Behavior on opacity { NumberAnimation { duration: 400; easing.type: Easing.OutQuad } }
-            opacity = 1
-        }
+    opacity: 0
+
+    Behavior on opacity {
+        NumberAnimation { duration: 400; easing.type: Easing.OutQuad }
     }
 
-    fillMode: Image.PreserveAspectCrop
+    onStageChanged: {
+        if (stage == 1) {
+            root.opacity = 1
+        }
+    }
 }
