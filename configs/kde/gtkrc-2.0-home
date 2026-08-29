@@ -9,6 +9,6 @@ gtk-cursor-blink=1
 gtk-cursor-theme-size=24
 gtk-cursor-theme-name=Blackshield
 gtk-sound-theme-name="ocean"
-gtk-icon-theme-name="Papirus-Dark"
+gtk-icon-theme-name="Blackshield-Icons"
 gtk-font-name="EB Garamond,  11"
 

@@ -155,7 +155,7 @@ smallestReadableFont=Pirata One,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 toolBarFont=Pirata One,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 
 [Icons]
-Theme=Obsidian-Red
+Theme=Blackshield-Icons
 
 [KDE]
 AnimationDurationFactor=0.25

@@ -78,10 +78,18 @@ phase_configs() {
   cp -r "$REPO_DIR/configs/kde/color-schemes/"* "$HOME_DIR/.local/share/color-schemes/" 2>/dev/null || true
   cp -r "$REPO_DIR/configs/kde/desktoptheme/"*  "$HOME_DIR/.local/share/plasma/desktoptheme/" 2>/dev/null || true
 
-  # icons (Obsidian-Red icon theme + Vimix-cursors), fonts, plasmoids, wallpapers
+  # icons (Blackshield-Icons forge + Vimix-cursors), fonts, plasmoids, wallpapers
   mkdir -p "$HOME_DIR/.local/share/icons" "$HOME_DIR/.local/share/fonts" \
            "$HOME_DIR/.local/share/plasma/plasmoids" "$HOME_DIR/Pictures"
   cp -r "$REPO_DIR/configs/icons/"*     "$HOME_DIR/.local/share/icons/"
+  # Forge the Blackshield icon theme (blood folders + steel/blood app set).
+  # Requires papirus-icon-theme (pacman) + nordzy-icon-theme (AUR).
+  if [[ -d /usr/share/icons/Papirus-Dark && -d /usr/share/icons/Nordzy-dark ]]; then
+    bash "$REPO_DIR/configs/icons/build-blackshield-icons.sh" \
+      && ok "Blackshield-Icons forged" || warn "icon forge failed (non-fatal)"
+  else
+    warn "Papirus-Dark or Nordzy-dark missing — skipping Blackshield icon forge"
+  fi
   cp -r "$REPO_DIR/configs/fonts/"*     "$HOME_DIR/.local/share/fonts/"
   cp -r "$REPO_DIR/configs/plasmoids/"* "$HOME_DIR/.local/share/plasma/plasmoids/"
   cp -r "$REPO_DIR/wallpapers/blackshield" "$HOME_DIR/Pictures/blackshield"
