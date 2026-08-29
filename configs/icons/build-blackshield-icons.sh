@@ -222,8 +222,27 @@ for root, dirs, files in os.walk(DST):
             os.remove(p)
             broken += 1
 
+# --------------------------------- layer 4: blood Kickoff category glyphs
+# Kickoff's sidebar renders categories/symbolic/*.svg with their own fill
+# (nord light gray #d8dee9). Recolor to canon blood.
+catsym = 0
+csdir = os.path.join(DST, "categories", "symbolic")
+if os.path.isdir(csdir):
+    for f in os.listdir(csdir):
+        if not f.endswith(".svg"):
+            continue
+        p = os.path.join(csdir, f)
+        with open(p) as fh:
+            content = fh.read()
+        new = re.sub(r"#d8dee9", "#C1121F", content, flags=re.I)
+        if new != content:
+            with open(p, "w") as fh:
+                fh.write(new)
+            catsym += 1
+
 print(f"folders={folders} sysicons={sysicons} aliases={aliases} "
-      f"nordzy-reforged={reforged} nordzy-links={links} broken-pruned={broken}")
+      f"nordzy-reforged={reforged} nordzy-links={links} broken-pruned={broken} "
+      f"category-glyphs-bled={catsym}")
 PYEOF
 
 echo "Done. Activate with:"
